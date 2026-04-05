@@ -1,7 +1,7 @@
 package com.ivan1arriola.soldadowidget
 
-import android.content.Context
 import android.os.Bundle
+import androidx.core.content.edit
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -16,16 +16,15 @@ class MainActivity : AppCompatActivity() {
 
     private var taps = 0
     private var guardMode = false
-    private val PREFS_NAME = "soldado_widget_prefs"
 
-    private val SOLDIER_FRAMES = listOf(
+    private val soldierFrames = listOf(
         R.drawable.soldado_frame_0,
         R.drawable.soldado_frame_1,
         R.drawable.soldado_frame_2,
         R.drawable.soldado_frame_3
     )
 
-    private val TAP_PHRASE_RES = listOf(
+    private val tapPhraseRes = listOf(
         R.string.soldado_phrase_1,
         R.string.soldado_phrase_2,
         R.string.soldado_phrase_3,
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         R.string.soldado_phrase_idle
     )
 
-    private val ORDER_REACTIONS = listOf(
+    private val orderReactions = listOf(
         R.drawable.soldado_frame_1 to R.string.soldado_phrase_order_march,
         R.drawable.soldado_frame_0 to R.string.soldado_phrase_order_scan,
         R.drawable.soldado_frame_2 to R.string.soldado_phrase_order_salute
@@ -58,6 +57,20 @@ class MainActivity : AppCompatActivity() {
             taps++
             FeedbackEffects.playTap(this)
 
+            // Animacion de "salto" o escala al tocar
+            soldierImage.animate()
+                .scaleX(1.2f)
+                .scaleY(1.2f)
+                .setDuration(100)
+                .withEndAction {
+                    soldierImage.animate()
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setDuration(100)
+                        .start()
+                }
+                .start()
+
             if (guardMode) {
                 soldierImage.setImageResource(R.drawable.soldado_frame_2)
                 soldierPhrase.text = getString(R.string.soldado_phrase_guard_on)
@@ -75,10 +88,10 @@ class MainActivity : AppCompatActivity() {
                 taps > 15 -> getString(R.string.soldado_phrase_sleep)
                 taps > 10 -> getString(R.string.soldado_phrase_angry)
                 taps > 5 -> getString(R.string.soldado_phrase_tired)
-                else -> getString(TAP_PHRASE_RES.random())
+                else -> getString(tapPhraseRes.random())
             }
 
-            soldierImage.setImageResource(SOLDIER_FRAMES[nextFrame])
+            soldierImage.setImageResource(soldierFrames[nextFrame])
             soldierPhrase.text = phrase
         }
 
@@ -99,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         // Boton extra de interaccion: da una orden y el soldado reacciona.
         btnOrder.setOnClickListener {
             FeedbackEffects.playCommand(this)
-            val (frameRes, phraseRes) = ORDER_REACTIONS.random()
+            val (frameRes, phraseRes) = orderReactions.random()
             soldierImage.setImageResource(frameRes)
             soldierPhrase.text = getString(phraseRes)
         }
@@ -112,8 +125,10 @@ class MainActivity : AppCompatActivity() {
             soldierPhrase.text = getString(R.string.soldado_phrase_idle)
 
             // Limpiar tambien las SharedPreferences del widget.
-            val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            prefs.edit().clear().apply()
+            val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+            prefs.edit {
+                clear()
+            }
         }
     }
 
@@ -137,5 +152,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         ViewCompat.requestApplyInsets(root)
+    }
+
+    companion object {
+        private const val PREFS_NAME = "soldado_widget_prefs"
     }
 }

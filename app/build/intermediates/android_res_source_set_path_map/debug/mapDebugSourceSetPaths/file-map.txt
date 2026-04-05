@@ -1,0 +1,8 @@
+com.ivan1arriola.soldadowidget.app-pngs-0 /home/ivan/repositorios/soldado-widget/app/build/generated/res/pngs/debug
+com.ivan1arriola.soldadowidget.app-resValues-1 /home/ivan/repositorios/soldado-widget/app/build/generated/res/resValues/debug
+com.ivan1arriola.soldadowidget.app-updated_navigation_xml-2 /home/ivan/repositorios/soldado-widget/app/build/generated/updated_navigation_xml/debug
+com.ivan1arriola.soldadowidget.app-packageDebugResources-3 /home/ivan/repositorios/soldado-widget/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.ivan1arriola.soldadowidget.app-packageDebugResources-4 /home/ivan/repositorios/soldado-widget/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.ivan1arriola.soldadowidget.app-debug-5 /home/ivan/repositorios/soldado-widget/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.ivan1arriola.soldadowidget.app-debug-6 /home/ivan/repositorios/soldado-widget/app/src/debug/res
+com.ivan1arriola.soldadowidget.app-main-7 /home/ivan/repositorios/soldado-widget/app/src/main/res

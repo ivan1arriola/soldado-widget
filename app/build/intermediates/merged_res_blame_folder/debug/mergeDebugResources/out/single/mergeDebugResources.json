@@ -1,0 +1,62 @@
+[
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_soldier_display_bg.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/soldier_display_bg.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_ic_launcher.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/layout_activity_main.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_widget_preview.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/widget_preview.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_widget_bg.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/widget_bg.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/layout_widget_soldado.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/layout/widget_soldado.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_soldado_frame_0.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/soldado_frame_0.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_soldado_frame_3.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/soldado_frame_3.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_app_container_bg.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/app_container_bg.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_ic_launcher_background.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/xml_soldado_widget_info.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/xml/soldado_widget_info.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_soldado_frame_1.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/soldado_frame_1.xml"
+    },
+    {
+        "merged": "com.ivan1arriola.soldadowidget.app-debug-32:/drawable_ic_launcher.xml.flat",
+        "source": "com.ivan1arriola.soldadowidget.app-main-34:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-debug-32:/drawable_soldado_frame_2.xml.flat",
+        "source": "/home/ivan/.gradle/daemon/9.3.1/com.ivan1arriola.soldadowidget.app-main-34:/drawable/soldado_frame_2.xml"
+    }
+]
