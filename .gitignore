@@ -1,0 +1,12 @@
+# Local Android SDK path
+local.properties
+
+# Gradle and Android build outputs
+.gradle/
+.kotlin/
+build/
+app/build/
+
+# IDE files
+.idea/
+*.iml
