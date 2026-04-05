@@ -1,4 +1,0 @@
-#Sun Apr 05 01:05:37 UYT 2026
-base.0=/home/ivan/repositorios/soldado-widget/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

@@ -92,6 +92,13 @@ jobs:
           set -euo pipefail
           chmod +x ./gradlew
 
+          # CI debe usar el SDK del runner, no rutas locales del repositorio.
+          printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
+
+          echo "Build commit: $(git rev-parse --short HEAD)"
+          echo "ic_launcher.xml usado en build:"
+          sed -n '1,80p' app/src/main/res/drawable/ic_launcher.xml
+
           # Build unsigned and sign manually for better OEM compatibility.
           ./gradlew clean assembleRelease -x lintVitalRelease
 

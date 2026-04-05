@@ -28,4 +28,16 @@
         android:textSize="12sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/soldierReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/reminder_line_unconfigured"
+        android:textAlignment="center"
+        android:textColor="#CCE8C6"
+        android:textSize="10sp" />
+
 </LinearLayout>

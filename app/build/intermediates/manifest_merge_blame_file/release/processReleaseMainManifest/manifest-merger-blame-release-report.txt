@@ -1,12 +1,12 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.ivan1arriola.soldadowidget.nuevo"
-4    android:versionCode="1"
-5    android:versionName="1.0" >
+3    package="com.ivan1arriola.soldadowidget"
+4    android:versionCode="3"
+5    android:versionName="1.2.0" >
 6
 7    <uses-sdk
 7-->INJECTED
-8        android:minSdkVersion="26"
+8        android:minSdkVersion="21"
 8-->INJECTED
 9        android:targetSdkVersion="35" />
 9-->INJECTED
@@ -14,143 +14,146 @@
 11    <uses-permission android:name="android.permission.VIBRATE" />
 11-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:4:5-66
 11-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:4:22-63
-12
-13    <permission
-13-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
-14        android:name="com.ivan1arriola.soldadowidget.nuevo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-14-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
-15        android:protectionLevel="signature" />
-15-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
-16
-17    <uses-permission android:name="com.ivan1arriola.soldadowidget.nuevo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-17-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
-17-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
-18
-19    <application
-19-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:6:5-35:19
-20        android:allowBackup="true"
-20-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:7:9-35
-21        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-21-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
-22        android:extractNativeLibs="false"
-22-->INJECTED
-23        android:icon="@drawable/ic_launcher"
-23-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:8:9-45
-24        android:label="@string/app_name"
-24-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:9:9-41
-25        android:roundIcon="@drawable/ic_launcher"
-25-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:10:9-50
-26        android:supportsRtl="true"
-26-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:11:9-35
-27        android:theme="@style/Theme.SoldadoWidget" >
-27-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:12:9-51
-28        <activity
-28-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:14:9-21:20
-29            android:name="com.ivan1arriola.soldadowidget.MainActivity"
-29-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:15:13-41
-30            android:exported="true" >
-30-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:16:13-36
-31            <intent-filter>
-31-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:17:13-20:29
-32                <action android:name="android.intent.action.MAIN" />
-32-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:18:17-69
-32-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:18:25-66
-33
-34                <category android:name="android.intent.category.LAUNCHER" />
-34-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:19:17-77
-34-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:19:27-74
-35            </intent-filter>
-36        </activity>
-37
-38        <receiver
-38-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:23:9-34:20
-39            android:name="com.ivan1arriola.soldadowidget.SoldadoWidgetProvider"
-39-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:24:13-50
-40            android:exported="true" >
-40-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:25:13-36
-41            <intent-filter>
-41-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:26:13-29:29
-42                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-42-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:27:17-84
-42-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:27:25-81
-43                <action android:name="com.ivan1arriola.soldadowidget.nuevo.ACTION_WIDGET_TAP" />
-43-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:28:17-97
-43-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:28:25-94
-44            </intent-filter>
-45
-46            <meta-data
-46-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:31:13-33:63
-47                android:name="android.appwidget.provider"
-47-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:32:17-58
-48                android:resource="@xml/soldado_widget_info" />
-48-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:33:17-60
-49        </receiver>
-50
-51        <provider
-51-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
-52            android:name="androidx.startup.InitializationProvider"
-52-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
-53            android:authorities="com.ivan1arriola.soldadowidget.nuevo.androidx-startup"
-53-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
-54            android:exported="false" >
-54-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
-55            <meta-data
-55-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
-56                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-56-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
-57                android:value="androidx.startup" />
-57-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
-58            <meta-data
-58-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/ivan/.gradle/caches/9.3.1/transforms/dcb0397370eb1af3c05d291aebce27bf/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
-59                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-59-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/ivan/.gradle/caches/9.3.1/transforms/dcb0397370eb1af3c05d291aebce27bf/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
-60                android:value="androidx.startup" />
-60-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/ivan/.gradle/caches/9.3.1/transforms/dcb0397370eb1af3c05d291aebce27bf/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
-61            <meta-data
-61-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
-62                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-62-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
-63                android:value="androidx.startup" />
-63-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
-64        </provider>
-65
-66        <receiver
-66-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
-67            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-67-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
-68            android:directBootAware="false"
-68-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
-69            android:enabled="true"
-69-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
-70            android:exported="true"
-70-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
-71            android:permission="android.permission.DUMP" >
-71-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
-72            <intent-filter>
-72-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
-73                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-73-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
-73-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
-74            </intent-filter>
-75            <intent-filter>
-75-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
-76                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-76-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
-76-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
-77            </intent-filter>
-78            <intent-filter>
-78-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
-79                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-79-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
-79-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
-80            </intent-filter>
-81            <intent-filter>
-81-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
-82                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-82-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
-82-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
-83            </intent-filter>
-84        </receiver>
-85    </application>
-86
-87</manifest>
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:5:5-67
+12-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:5:22-64
+13
+14    <permission
+14-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
+15        android:name="com.ivan1arriola.soldadowidget.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+15-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
+16        android:protectionLevel="signature" />
+16-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
+17
+18    <uses-permission android:name="com.ivan1arriola.soldadowidget.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+18-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
+18-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+19
+20    <application
+20-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:7:5-36:19
+21        android:allowBackup="true"
+21-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:8:9-35
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
+23        android:extractNativeLibs="true"
+23-->INJECTED
+24        android:icon="@drawable/ic_launcher"
+24-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:9:9-45
+25        android:label="@string/app_name"
+25-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:10:9-41
+26        android:roundIcon="@drawable/ic_launcher"
+26-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:11:9-50
+27        android:supportsRtl="true"
+27-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:12:9-35
+28        android:theme="@style/Theme.SoldadoWidget" >
+28-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:13:9-51
+29        <activity
+29-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:15:9-22:20
+30            android:name="com.ivan1arriola.soldadowidget.MainActivity"
+30-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:16:13-41
+31            android:exported="true" >
+31-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:17:13-36
+32            <intent-filter>
+32-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:18:13-21:29
+33                <action android:name="android.intent.action.MAIN" />
+33-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:19:17-69
+33-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:19:25-66
+34
+35                <category android:name="android.intent.category.LAUNCHER" />
+35-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:20:17-77
+35-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:20:27-74
+36            </intent-filter>
+37        </activity>
+38
+39        <receiver
+39-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:24:9-35:20
+40            android:name="com.ivan1arriola.soldadowidget.SoldadoWidgetProvider"
+40-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:25:13-50
+41            android:exported="true" >
+41-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:26:13-36
+42            <intent-filter>
+42-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:27:13-30:29
+43                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+43-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:28:17-84
+43-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:28:25-81
+44                <action android:name="com.ivan1arriola.soldadowidget.ACTION_WIDGET_TAP" />
+44-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:29:17-91
+44-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:29:25-88
+45            </intent-filter>
+46
+47            <meta-data
+47-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:32:13-34:63
+48                android:name="android.appwidget.provider"
+48-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:33:17-58
+49                android:resource="@xml/soldado_widget_info" />
+49-->/home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:34:17-60
+50        </receiver>
+51
+52        <provider
+52-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+53            android:name="androidx.startup.InitializationProvider"
+53-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+54            android:authorities="com.ivan1arriola.soldadowidget.androidx-startup"
+54-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+55            android:exported="false" >
+55-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+56            <meta-data
+56-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+57                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+57-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+58                android:value="androidx.startup" />
+58-->[androidx.emoji2:emoji2:1.3.0] /home/ivan/.gradle/caches/9.3.1/transforms/bfb5058201493fe8077057c7d0dc99a5/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+59            <meta-data
+59-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/ivan/.gradle/caches/9.3.1/transforms/dcb0397370eb1af3c05d291aebce27bf/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+60                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+60-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/ivan/.gradle/caches/9.3.1/transforms/dcb0397370eb1af3c05d291aebce27bf/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+61                android:value="androidx.startup" />
+61-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/ivan/.gradle/caches/9.3.1/transforms/dcb0397370eb1af3c05d291aebce27bf/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+62            <meta-data
+62-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+63                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+63-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+64                android:value="androidx.startup" />
+64-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+65        </provider>
+66
+67        <receiver
+67-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+68            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+68-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+69            android:directBootAware="false"
+69-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+70            android:enabled="true"
+70-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+71            android:exported="true"
+71-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+72            android:permission="android.permission.DUMP" >
+72-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+73            <intent-filter>
+73-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+74                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+74-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+74-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+75            </intent-filter>
+76            <intent-filter>
+76-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+77                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+77-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+77-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+78            </intent-filter>
+79            <intent-filter>
+79-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+80                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+80-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+80-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+81            </intent-filter>
+82            <intent-filter>
+82-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+83                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+83-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+83-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/ivan/.gradle/caches/9.3.1/transforms/d0b9ffcce2f4c0767a532912adce51f5/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+84            </intent-filter>
+85        </receiver>
+86    </application>
+87
+88</manifest>
