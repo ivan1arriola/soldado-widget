@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import kotlin.random.Random
+import java.util.concurrent.Executors
 
 class SoldadoWidgetProvider : AppWidgetProvider() {
 
@@ -18,8 +19,10 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
     ) {
         appWidgetIds.forEach { appWidgetId ->
             val frame = loadFrame(context, appWidgetId)
-            val phrase = context.getString(R.string.soldado_phrase_idle)
-            updateWidget(context, appWidgetManager, appWidgetId, frame, phrase)
+            val phrase = ReminderSync.phrase(context, appWidgetId)
+            val reminderLine = ReminderSync.reminderLine(context, appWidgetId)
+            updateWidget(context, appWidgetManager, appWidgetId, frame, phrase, reminderLine)
+            requestSync(context, appWidgetId, force = false)
         }
     }
 
@@ -82,7 +85,9 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         }
 
         val manager = AppWidgetManager.getInstance(context)
-        updateWidget(context, manager, appWidgetId, nextFrame, phrase)
+        val reminderLine = ReminderSync.reminderLine(context, appWidgetId)
+        updateWidget(context, manager, appWidgetId, nextFrame, phrase, reminderLine)
+        requestSync(context, appWidgetId, force = false)
     }
 
     override fun onDeleted(context: Context, appWidgetIds: IntArray) {
@@ -92,6 +97,7 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         appWidgetIds.forEach { id -> 
             editor.remove("frame_$id")
             editor.remove("taps_$id")
+            editor.remove("last_tap_$id")
         }
         editor.apply()
     }
@@ -101,16 +107,39 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         manager: AppWidgetManager,
         appWidgetId: Int,
         frame: Int,
-        phrase: String
+        phrase: String,
+        reminderLine: String
     ) {
         val views = RemoteViews(context.packageName, R.layout.widget_soldado)
         views.setImageViewResource(R.id.soldierImage, SOLDIER_FRAMES[frame])
         views.setTextViewText(R.id.soldierPhrase, phrase)
+        views.setTextViewText(R.id.soldierReminder, reminderLine)
         views.setOnClickPendingIntent(R.id.widgetRoot, clickIntent(context, appWidgetId))
         views.setOnClickPendingIntent(R.id.soldierImage, clickIntent(context, appWidgetId))
         views.setOnClickPendingIntent(R.id.soldierPhrase, openAppIntent(context, appWidgetId))
+        views.setOnClickPendingIntent(R.id.soldierReminder, openAppIntent(context, appWidgetId))
 
         manager.updateAppWidget(appWidgetId, views)
+    }
+
+    private fun requestSync(context: Context, appWidgetId: Int, force: Boolean) {
+        if (!ReminderSync.isConfigured(context)) return
+
+        val now = System.currentTimeMillis()
+        val lastSync = ReminderSync.readLastSyncTime(context, appWidgetId)
+        if (!force && now - lastSync < MIN_SYNC_INTERVAL_MS) return
+
+        ioExecutor.execute {
+            val snapshot = ReminderSync.fetchSnapshot(context)
+            ReminderSync.saveSnapshotForWidget(context, appWidgetId, snapshot)
+
+            val frame = loadFrame(context, appWidgetId)
+            val phrase = ReminderSync.phrase(context, appWidgetId)
+            val reminderLine = ReminderSync.reminderLine(context, appWidgetId)
+
+            val manager = AppWidgetManager.getInstance(context)
+            updateWidget(context, manager, appWidgetId, frame, phrase, reminderLine)
+        }
     }
 
     private fun clickIntent(context: Context, appWidgetId: Int): PendingIntent {
@@ -153,6 +182,9 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         private const val PREFS_NAME = "soldado_widget_prefs"
         private const val ACTION_WIDGET_TAP = "com.ivan1arriola.soldadowidget.ACTION_WIDGET_TAP"
         private const val OPEN_APP_REQUEST_OFFSET = 10_000
+        private const val MIN_SYNC_INTERVAL_MS = 60_000L
+
+        private val ioExecutor = Executors.newSingleThreadExecutor()
 
         private val SOLDIER_FRAMES = listOf(
             R.drawable.soldado_frame_0,

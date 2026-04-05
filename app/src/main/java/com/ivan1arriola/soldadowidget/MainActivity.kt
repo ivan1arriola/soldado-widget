@@ -1,7 +1,9 @@
 package com.ivan1arriola.soldadowidget
 
+import android.appwidget.AppWidgetManager
 import android.os.Bundle
 import androidx.core.content.edit
+import android.widget.EditText
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -51,6 +53,38 @@ class MainActivity : AppCompatActivity() {
         val soldierPhrase = findViewById<TextView>(R.id.mainSoldierPhrase)
         val btnOrder = findViewById<Button>(R.id.btnOrder)
         val btnReset = findViewById<Button>(R.id.btnReset)
+        val inputApiBaseUrl = findViewById<EditText>(R.id.inputApiBaseUrl)
+        val inputUsuarioId = findViewById<EditText>(R.id.inputUsuarioId)
+        val inputToken = findViewById<EditText>(R.id.inputToken)
+        val btnSaveExtension = findViewById<Button>(R.id.btnSaveExtension)
+        val btnSyncExtension = findViewById<Button>(R.id.btnSyncExtension)
+        val extensionStatusText = findViewById<TextView>(R.id.extensionStatusText)
+
+        val initialConfig = ReminderSync.readConfig(this)
+        inputApiBaseUrl.setText(initialConfig.baseUrl)
+        inputUsuarioId.setText(initialConfig.usuarioId)
+        inputToken.setText(initialConfig.token)
+        extensionStatusText.text = if (initialConfig.isConfigured) {
+            getString(R.string.reminder_line_pending, 0)
+        } else {
+            getString(R.string.extension_status_unconfigured)
+        }
+
+        btnSaveExtension.setOnClickListener {
+            val newConfig = ReminderSync.ExtensionConfig(
+                baseUrl = inputApiBaseUrl.text.toString(),
+                usuarioId = inputUsuarioId.text.toString(),
+                token = inputToken.text.toString()
+            )
+            ReminderSync.saveConfig(this, newConfig)
+            extensionStatusText.text = getString(R.string.extension_status_saved)
+            triggerWidgetRefresh()
+            syncExtensionNow(extensionStatusText)
+        }
+
+        btnSyncExtension.setOnClickListener {
+            syncExtensionNow(extensionStatusText)
+        }
 
         // Toque corto: reaccion aleatoria o modo guardia.
         soldierContainer.setOnClickListener {
@@ -129,7 +163,51 @@ class MainActivity : AppCompatActivity() {
             prefs.edit {
                 clear()
             }
+
+            extensionStatusText.text = getString(R.string.extension_status_unconfigured)
+            inputApiBaseUrl.setText("")
+            inputUsuarioId.setText("")
+            inputToken.setText("")
+            triggerWidgetRefresh()
         }
+    }
+
+    private fun syncExtensionNow(statusView: TextView) {
+        val config = ReminderSync.readConfig(this)
+        if (!config.isConfigured) {
+            statusView.text = getString(R.string.extension_status_unconfigured)
+            return
+        }
+
+        statusView.text = getString(R.string.btn_sync_extension_label)
+        Thread {
+            val snapshot = ReminderSync.fetchSnapshot(this)
+            runOnUiThread {
+                if (snapshot == null) {
+                    statusView.text = getString(R.string.extension_status_sync_fail)
+                } else {
+                    statusView.text = getString(
+                        R.string.extension_status_sync_ok,
+                        snapshot.pendingCount,
+                        snapshot.urgentCount
+                    )
+                    triggerWidgetRefresh()
+                }
+            }
+        }.start()
+    }
+
+    private fun triggerWidgetRefresh() {
+        val manager = AppWidgetManager.getInstance(this)
+        val componentName = android.content.ComponentName(this, SoldadoWidgetProvider::class.java)
+        val ids = manager.getAppWidgetIds(componentName)
+        if (ids.isEmpty()) return
+
+        val intent = android.content.Intent(this, SoldadoWidgetProvider::class.java).apply {
+            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+        sendBroadcast(intent)
     }
 
     private fun applySystemInsets(root: View) {
