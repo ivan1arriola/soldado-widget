@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Sombre del suelo -->
+    <item android:top="64dp" android:left="20dp" android:right="20dp" android:bottom="2dp">
+        <shape android:shape="oval"><solid android:color="#20000000" /></shape>
+    </item>
+
+    <!-- Cuerpo (Forma de píldora) -->
+    <item android:top="30dp" android:left="18dp" android:right="18dp" android:bottom="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#78866B" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+
+    <!-- Cabeza (Redonda y grande) -->
+    <item android:top="6dp" android:left="16dp" android:right="16dp" android:bottom="32dp">
+        <shape android:shape="oval"><solid android:color="#FFDBAC" /></shape>
+    </item>
+
+    <!-- Casco (Minimalista) -->
+    <item android:top="2dp" android:left="15dp" android:right="15dp" android:bottom="48dp">
+        <shape android:shape="oval"><solid android:color="#556B2F" /></shape>
+    </item>
+    <item android:top="14dp" android:left="15dp" android:right="15dp" android:bottom="52dp">
+        <shape android:shape="rectangle"><solid android:color="#556B2F" /><corners android:bottomLeftRadius="4dp" android:bottomRightRadius="4dp"/></shape>
+    </item>
+
+    <!-- Ojos (Grandes y brillantes) -->
+    <item android:top="22dp" android:left="28dp" android:right="38dp" android:bottom="40dp">
+        <shape android:shape="oval"><solid android:color="#212121" /></shape>
+    </item>
+    <item android:top="22dp" android:left="38dp" android:right="28dp" android:bottom="40dp">
+        <shape android:shape="oval"><solid android:color="#212121" /></shape>
+    </item>
+    <!-- Brillo en ojos -->
+    <item android:top="23dp" android:left="30dp" android:right="40dp" android:bottom="43dp">
+        <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
+    </item>
+    <item android:top="23dp" android:left="40dp" android:right="30dp" android:bottom="43dp">
+        <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
+    </item>
+
+    <!-- Sonrisa pequeña -->
+    <item android:top="32dp" android:left="34dp" android:right="34dp" android:bottom="36dp">
+        <shape android:shape="oval"><solid android:color="#8D6E63" /></shape>
+    </item>
+
+    <!-- Brazos pequeños a los lados -->
+    <item android:top="38dp" android:left="10dp" android:right="54dp" android:bottom="18dp">
+        <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
+    </item>
+    <item android:top="38dp" android:left="54dp" android:right="10dp" android:bottom="18dp">
+        <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
+    </item>
+</layer-list>

@@ -1,0 +1,58 @@
+[
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_soldado_frame_3.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/soldado_frame_3.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_app_container_bg.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/app_container_bg.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_soldado_frame_2.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/soldado_frame_2.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_widget_bg.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/widget_bg.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/layout_activity_main.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/xml_soldado_widget_info.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/xml/soldado_widget_info.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_ic_launcher.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_widget_preview.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/widget_preview.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_soldier_display_bg.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/soldier_display_bg.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_soldado_frame_0.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/soldado_frame_0.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/layout_widget_soldado.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/layout/widget_soldado.xml"
+    },
+    {
+        "merged": "com.example.soldadowidget.app-release-32:/drawable_soldado_frame_1.xml.flat",
+        "source": "com.example.soldadowidget.app-main-33:/drawable/soldado_frame_1.xml"
+    }
+]

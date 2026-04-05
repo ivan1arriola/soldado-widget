@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Frame 2: Saludo (Un brazo arriba) -->
+
+    <!-- Sombra del suelo -->
+    <item android:top="64dp" android:left="20dp" android:right="20dp" android:bottom="2dp">
+        <shape android:shape="oval"><solid android:color="#20000000" /></shape>
+    </item>
+
+    <!-- Cuerpo -->
+    <item android:top="30dp" android:left="18dp" android:right="18dp" android:bottom="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#78866B" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+
+    <!-- Cabeza -->
+    <item android:top="6dp" android:left="16dp" android:right="16dp" android:bottom="32dp">
+        <shape android:shape="oval"><solid android:color="#FFDBAC" /></shape>
+    </item>
+
+    <!-- Casco -->
+    <item android:top="2dp" android:left="15dp" android:right="15dp" android:bottom="48dp">
+        <shape android:shape="oval"><solid android:color="#556B2F" /></shape>
+    </item>
+
+    <!-- Ojos -->
+    <item android:top="22dp" android:left="28dp" android:right="38dp" android:bottom="40dp">
+        <shape android:shape="oval"><solid android:color="#212121" /></shape>
+    </item>
+    <item android:top="22dp" android:left="38dp" android:right="28dp" android:bottom="40dp">
+        <shape android:shape="oval"><solid android:color="#212121" /></shape>
+    </item>
+
+    <!-- Un brazo abajo -->
+    <item android:top="38dp" android:left="10dp" android:right="54dp" android:bottom="18dp">
+        <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
+    </item>
+    <!-- Un brazo arriba saludando -->
+    <item android:top="15dp" android:left="54dp" android:right="10dp" android:bottom="41dp">
+        <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
+    </item>
+</layer-list>
