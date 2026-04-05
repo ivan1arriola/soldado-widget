@@ -1,3 +1,0 @@
-com.example.soldadowidget.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme
