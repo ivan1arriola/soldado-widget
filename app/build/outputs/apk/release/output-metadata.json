@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.soldadowidget",
+  "applicationId": "com.ivan1arriola.soldadowidget.nuevo",
   "variantName": "release",
   "elements": [
     {

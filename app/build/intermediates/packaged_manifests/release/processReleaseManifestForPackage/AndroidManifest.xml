@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.soldadowidget"
+    package="com.ivan1arriola.soldadowidget.nuevo"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -11,10 +11,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <permission
-        android:name="com.example.soldadowidget.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.ivan1arriola.soldadowidget.nuevo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.soldadowidget.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.ivan1arriola.soldadowidget.nuevo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SoldadoWidget" >
         <activity
-            android:name="com.example.soldadowidget.MainActivity"
+            android:name="com.ivan1arriola.soldadowidget.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,11 +36,11 @@
         </activity>
 
         <receiver
-            android:name="com.example.soldadowidget.SoldadoWidgetProvider"
+            android:name="com.ivan1arriola.soldadowidget.SoldadoWidgetProvider"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.example.soldadowidget.ACTION_WIDGET_TAP" />
+                <action android:name="com.ivan1arriola.soldadowidget.nuevo.ACTION_WIDGET_TAP" />
             </intent-filter>
 
             <meta-data
@@ -50,7 +50,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.soldadowidget.androidx-startup"
+            android:authorities="com.ivan1arriola.soldadowidget.nuevo.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

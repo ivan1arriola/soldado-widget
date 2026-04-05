@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.soldadowidget.app-mergeReleaseResources-30:/values-w320dp-land-v13/values-w320dp-land-v13.xml",
+            "outputFile": "com.ivan1arriola.soldadowidget.app-mergeReleaseResources-30:/values-w320dp-land-v13/values-w320dp-land-v13.xml",
             "map": [
                 {
                     "source": "/home/ivan/.gradle/caches/9.3.1/transforms/9dd714ff87d4205e05f1570b54dfaa5f/transformed/material-1.12.0/res/values-w320dp-land-v13/values-w320dp-land-v13.xml",

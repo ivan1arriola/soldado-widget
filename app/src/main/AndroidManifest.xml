@@ -25,7 +25,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.example.soldadowidget.ACTION_WIDGET_TAP" />
+                <action android:name="com.ivan1arriola.soldadowidget.nuevo.ACTION_WIDGET_TAP" />
             </intent-filter>
 
             <meta-data

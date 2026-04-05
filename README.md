@@ -21,5 +21,5 @@ Widget de pantalla de inicio con un soldado estilo pixel-art que cambia de pose 
 ## Personalizacion rapida
 
 - Cambia frases en `app/src/main/res/values/strings.xml`.
-- Cambia el comportamiento al toque en `app/src/main/java/com/example/soldadowidget/SoldadoWidgetProvider.kt`.
+- Cambia el comportamiento al toque en `app/src/main/java/com/ivan1arriola/soldadowidget/SoldadoWidgetProvider.kt`.
 - Reemplaza los frames en `app/src/main/res/drawable/soldado_frame_*.xml` por sprites PNG si quieres un estilo mas detallado.

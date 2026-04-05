@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.soldadowidget.app-mergeReleaseResources-30:/values/values.xml",
+            "outputFile": "com.ivan1arriola.soldadowidget.app-mergeReleaseResources-30:/values/values.xml",
             "map": [
                 {
                     "source": "/home/ivan/.gradle/caches/9.3.1/transforms/9bf2073f7480c8f53c2526db22bd1ff8/transformed/cardview-1.0.0/res/values/values.xml",

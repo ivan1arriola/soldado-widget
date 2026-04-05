@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.soldadowidget"
+    namespace = "com.ivan1arriola.soldadowidget"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.soldadowidget"
+        applicationId = "com.ivan1arriola.soldadowidget.nuevo"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

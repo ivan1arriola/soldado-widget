@@ -1,6 +1,6 @@
 <variant
     name="release"
-    package="com.example.soldadowidget"
+    package="com.ivan1arriola.soldadowidget"
     minSdkVersion="26"
     targetSdkVersion="35"
     mergedManifest="build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml"
@@ -23,7 +23,7 @@
   <artifact
       classOutputs="build/intermediates/javac/release/compileReleaseJavaWithJavac/classes:build/tmp/kotlin-classes/release:build/kotlinToolingMetadata:build/intermediates/compile_and_runtime_r_class_jar/release/processReleaseResources/R.jar"
       type="MAIN"
-      applicationId="com.example.soldadowidget"
+      applicationId="com.ivan1arriola.soldadowidget.nuevo"
       generatedSourceFolders="build/generated/ap_generated_sources/release/out"
       generatedResourceFolders="build/generated/res/resValues/release"
       desugaredMethodsFiles="/home/ivan/.gradle/caches/9.3.1/transforms/dc0455ca5791eda601686aadb5eb904d/transformed/D8BackportedDesugaredMethods.txt">

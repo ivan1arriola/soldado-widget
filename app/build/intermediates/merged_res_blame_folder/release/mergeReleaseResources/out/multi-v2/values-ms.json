@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.soldadowidget.app-mergeReleaseResources-30:/values-ms/values-ms.xml",
+            "outputFile": "com.ivan1arriola.soldadowidget.app-mergeReleaseResources-30:/values-ms/values-ms.xml",
             "map": [
                 {
                     "source": "/home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/res/values-ms/values-ms.xml",
