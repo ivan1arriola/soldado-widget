@@ -151,7 +151,7 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
 
     companion object {
         private const val PREFS_NAME = "soldado_widget_prefs"
-        private const val ACTION_WIDGET_TAP = "com.ivan1arriola.soldadowidget.nuevo.ACTION_WIDGET_TAP"
+        private const val ACTION_WIDGET_TAP = "com.ivan1arriola.soldadowidget.ACTION_WIDGET_TAP"
         private const val OPEN_APP_REQUEST_OFFSET = 10_000
 
         private val SOLDIER_FRAMES = listOf(

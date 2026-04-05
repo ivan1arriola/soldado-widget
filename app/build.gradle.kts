@@ -8,7 +8,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.ivan1arriola.soldadowidget.nuevo"
+        applicationId = "com.ivan1arriola.soldadowidget"
         minSdk = 21
         targetSdk = 35
         versionCode = 2
