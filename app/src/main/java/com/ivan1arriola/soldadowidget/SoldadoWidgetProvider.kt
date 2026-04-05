@@ -98,6 +98,7 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
             editor.remove("frame_$id")
             editor.remove("taps_$id")
             editor.remove("last_tap_$id")
+            ReminderSync.clearSnapshotForWidget(context, id)
         }
         editor.apply()
     }

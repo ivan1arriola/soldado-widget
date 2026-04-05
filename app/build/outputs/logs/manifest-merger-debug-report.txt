@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:2:1-37:12
-INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:2:1-37:12
-INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:2:1-37:12
-INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:2:1-37:12
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:2:1-38:12
 MERGED from [com.google.android.material:material:1.12.0] /home/ivan/.gradle/caches/9.3.1/transforms/9dd714ff87d4205e05f1570b54dfaa5f/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] /home/ivan/.gradle/caches/9.3.1/transforms/02268eb66bdd5dba81f496c85af15f17/transformed/constraintlayout-2.2.0/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.appcompat:appcompat-resources:1.7.0] /home/ivan/.gradle/caches/9.3.1/transforms/c9ea2b503480941c6d2af7c91781385e/transformed/appcompat-resources-1.7.0/AndroidManifest.xml:2:1-7:12
@@ -57,9 +57,13 @@ uses-permission#android.permission.VIBRATE
 ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:4:5-66
 	android:name
 		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:4:22-63
+uses-permission#android.permission.INTERNET
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:5:22-64
 application
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:6:5-35:19
-INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:6:5-35:19
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:7:5-36:19
+INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:7:5-36:19
 MERGED from [com.google.android.material:material:1.12.0] /home/ivan/.gradle/caches/9.3.1/transforms/9dd714ff87d4205e05f1570b54dfaa5f/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /home/ivan/.gradle/caches/9.3.1/transforms/9dd714ff87d4205e05f1570b54dfaa5f/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] /home/ivan/.gradle/caches/9.3.1/transforms/02268eb66bdd5dba81f496c85af15f17/transformed/constraintlayout-2.2.0/AndroidManifest.xml:7:5-20
@@ -81,55 +85,55 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/ivan/
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.15.0] /home/ivan/.gradle/caches/9.3.1/transforms/6eb5872d0bde294f38298a0564aeb016/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:11:9-35
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:12:9-35
 	android:label
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:9:9-41
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:10:9-41
 	android:roundIcon
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:10:9-50
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:11:9-50
 	android:icon
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:8:9-45
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:9:9-45
 	android:allowBackup
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:7:9-35
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:8:9-35
 	android:theme
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:12:9-51
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:13:9-51
 activity#com.ivan1arriola.soldadowidget.MainActivity
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:14:9-21:20
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:15:9-22:20
 	android:exported
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:16:13-36
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:17:13-36
 	android:name
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:15:13-41
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:16:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:17:13-20:29
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:18:13-21:29
 action#android.intent.action.MAIN
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:18:17-69
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:19:17-69
 	android:name
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:18:25-66
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:19:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:19:17-77
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:20:17-77
 	android:name
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:19:27-74
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:20:27-74
 receiver#com.ivan1arriola.soldadowidget.SoldadoWidgetProvider
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:23:9-34:20
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:24:9-35:20
 	android:exported
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:25:13-36
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:26:13-36
 	android:name
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:24:13-50
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:25:13-50
 intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE+action:name:com.ivan1arriola.soldadowidget.ACTION_WIDGET_TAP
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:26:13-29:29
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:27:13-30:29
 action#android.appwidget.action.APPWIDGET_UPDATE
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:27:17-84
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:28:17-84
 	android:name
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:27:25-81
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:28:25-81
 action#com.ivan1arriola.soldadowidget.ACTION_WIDGET_TAP
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:28:17-91
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:29:17-91
 	android:name
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:28:25-88
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:29:25-88
 meta-data#android.appwidget.provider
-ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:31:13-33:63
+ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:32:13-34:63
 	android:resource
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:33:17-60
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:34:17-60
 	android:name
-		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:32:17-58
+		ADDED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml:33:17-58
 uses-sdk
 INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/ivan/repositorios/soldado-widget/app/src/main/AndroidManifest.xml

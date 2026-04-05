@@ -9,6 +9,7 @@
         android:targetSdkVersion="35" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <permission
         android:name="com.ivan1arriola.soldadowidget.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"

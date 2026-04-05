@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         inputUsuarioId.setText(initialConfig.usuarioId)
         inputToken.setText(initialConfig.token)
         extensionStatusText.text = if (initialConfig.isConfigured) {
-            getString(R.string.reminder_line_pending, 0)
+            getString(R.string.extension_status_ready)
         } else {
             getString(R.string.extension_status_unconfigured)
         }
@@ -179,7 +179,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        statusView.text = getString(R.string.btn_sync_extension_label)
+        statusView.text = getString(R.string.extension_status_syncing)
         Thread {
             val snapshot = ReminderSync.fetchSnapshot(this)
             runOnUiThread {

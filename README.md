@@ -9,6 +9,7 @@ Widget de pantalla de inicio con un soldado estilo pixel-art que cambia de pose 
 - 4 frames de soldado en drawables XML
 - Frases aleatorias al toque
 - Estado por widget guardado en `SharedPreferences`
+- Modo extension para leer recordatorios de `Deposito_ART1`
 
 ## Ejecutar
 
@@ -23,3 +24,25 @@ Widget de pantalla de inicio con un soldado estilo pixel-art que cambia de pose 
 - Cambia frases en `app/src/main/res/values/strings.xml`.
 - Cambia el comportamiento al toque en `app/src/main/java/com/ivan1arriola/soldadowidget/SoldadoWidgetProvider.kt`.
 - Reemplaza los frames en `app/src/main/res/drawable/soldado_frame_*.xml` por sprites PNG si quieres un estilo mas detallado.
+
+## Integracion con Deposito_ART1
+
+La app ahora puede actuar como extension de `Deposito_ART1` y mostrar recordatorios reales de la misma base de datos (via API del servidor).
+
+1. En `Deposito_ART1` configura una variable de entorno:
+
+```env
+SOLDADO_WIDGET_EXTENSION_TOKEN="tu_token_largo_y_secreto"
+```
+
+2. Inicia `Deposito_ART1`.
+3. Abre la app `Soldado Widget` y completa:
+	- URL base (ej: `https://tu-dominio`)
+	- `usuarioId` del usuario destino en Deposito_ART1
+	- token de extension (el mismo del servidor)
+4. Pulsa `Guardar extension` y luego `Sincronizar recordatorios`.
+
+Endpoint usado por el widget:
+
+- `GET /api/extensions/soldado-widget/recordatorios?usuarioId=<id>&limit=3`
+- Header: `Authorization: Bearer <token>`

@@ -25,7 +25,9 @@
     <string name="hint_extension_usuario_id">Usuario ID de Deposito_ART1</string>
     <string name="hint_extension_token">Token de extension</string>
     <string name="extension_status_unconfigured">Completa URL, usuario y token para conectar con Deposito_ART1.</string>
+    <string name="extension_status_ready">Extension configurada. Puedes sincronizar cuando quieras.</string>
     <string name="extension_status_saved">Configuracion guardada. Sincronizando widgets...</string>
+    <string name="extension_status_syncing">Sincronizando recordatorios...</string>
     <string name="extension_status_sync_ok">Sincronizacion OK: %1$d pendientes, %2$d urgentes.</string>
     <string name="extension_status_sync_fail">No se pudo sincronizar. Revisa URL/token y conectividad.</string>
 

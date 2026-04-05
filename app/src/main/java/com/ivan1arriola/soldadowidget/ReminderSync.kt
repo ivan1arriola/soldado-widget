@@ -91,18 +91,28 @@ object ReminderSync {
     fun saveSnapshotForWidget(context: Context, appWidgetId: Int, snapshot: ReminderSnapshot?) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit {
+            putLong("$KEY_LAST_SYNC_PREFIX$appWidgetId", System.currentTimeMillis())
+
             if (snapshot == null) {
                 remove("$KEY_PENDING_PREFIX$appWidgetId")
                 remove("$KEY_URGENT_PREFIX$appWidgetId")
                 remove("$KEY_TOP_TITLE_PREFIX$appWidgetId")
-                remove("$KEY_LAST_SYNC_PREFIX$appWidgetId")
                 return@edit
             }
 
             putInt("$KEY_PENDING_PREFIX$appWidgetId", snapshot.pendingCount)
             putInt("$KEY_URGENT_PREFIX$appWidgetId", snapshot.urgentCount)
             putString("$KEY_TOP_TITLE_PREFIX$appWidgetId", snapshot.topTitle)
-            putLong("$KEY_LAST_SYNC_PREFIX$appWidgetId", System.currentTimeMillis())
+        }
+    }
+
+    fun clearSnapshotForWidget(context: Context, appWidgetId: Int) {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit {
+            remove("$KEY_PENDING_PREFIX$appWidgetId")
+            remove("$KEY_URGENT_PREFIX$appWidgetId")
+            remove("$KEY_TOP_TITLE_PREFIX$appWidgetId")
+            remove("$KEY_LAST_SYNC_PREFIX$appWidgetId")
         }
     }
 
@@ -112,6 +122,8 @@ object ReminderSync {
     }
 
     fun reminderLine(context: Context, appWidgetId: Int): String {
+        if (!isConfigured(context)) return context.getString(R.string.reminder_line_unconfigured)
+
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val pending = prefs.getInt("$KEY_PENDING_PREFIX$appWidgetId", 0)
         val urgent = prefs.getInt("$KEY_URGENT_PREFIX$appWidgetId", 0)
@@ -124,6 +136,8 @@ object ReminderSync {
     }
 
     fun phrase(context: Context, appWidgetId: Int): String {
+        if (!isConfigured(context)) return context.getString(R.string.soldado_phrase_idle)
+
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val pending = prefs.getInt("$KEY_PENDING_PREFIX$appWidgetId", 0)
         val urgent = prefs.getInt("$KEY_URGENT_PREFIX$appWidgetId", 0)
@@ -139,7 +153,7 @@ object ReminderSync {
 
     private fun truncate(value: String, maxLength: Int): String {
         if (value.length <= maxLength) return value
-        return value.take(maxLength - 1) + "…"
+        return value.take(maxLength - 3) + "..."
     }
 
     private fun urlEncode(value: String): String {
