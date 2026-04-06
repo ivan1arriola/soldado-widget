@@ -29,6 +29,11 @@ object ReminderSync {
         val topTitles: List<String>
     )
 
+    data class WidgetStats(
+        val pendingCount: Int,
+        val urgentCount: Int
+    )
+
     data class TaskListResponse(
         val usuarioId: String,
         val username: String,
@@ -502,6 +507,14 @@ object ReminderSync {
             urgent > 0 -> context.getString(R.string.reminder_line_urgent, pending, urgent)
             else -> context.getString(R.string.reminder_line_pending, pending)
         }
+    }
+
+    fun readWidgetStats(context: Context, appWidgetId: Int): WidgetStats {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return WidgetStats(
+            pendingCount = prefs.getInt("$KEY_PENDING_PREFIX$appWidgetId", 0),
+            urgentCount = prefs.getInt("$KEY_URGENT_PREFIX$appWidgetId", 0)
+        )
     }
 
     fun phrase(context: Context, appWidgetId: Int): String {

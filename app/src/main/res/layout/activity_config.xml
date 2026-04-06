@@ -17,7 +17,7 @@
             android:id="@+id/configTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Configuración de Red"
+            android:text="Configuracion"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -29,95 +29,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Inicia sesion con tu usuario de Deposito_ART1 para recibir recordatorios."
+            android:text="Solo inicia sesion web para conectar el widget con Deposito_ART1."
             android:textColor="#BBC5B4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/configTitle" />
 
-        <EditText
-            android:id="@+id/inputApiBaseUrl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="#A4B09A"
-            android:enabled="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:clickable="false"
-            android:hint="@string/hint_extension_base_url"
-            android:imeOptions="actionNext"
-            android:inputType="textUri"
-            android:maxLines="1"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#BBC5B4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/configSubtitle" />
-
-        <EditText
-            android:id="@+id/inputUsername"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#A4B09A"
-            android:hint="@string/hint_extension_username"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#BBC5B4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputApiBaseUrl" />
-
-        <EditText
-            android:id="@+id/inputPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#A4B09A"
-            android:hint="@string/hint_extension_password"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#BBC5B4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputUsername" />
-
-        <Button
-            android:id="@+id/btnSaveExtension"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/btn_save_extension_label"
-            app:layout_constraintTop_toBottomOf="@id/inputPassword" />
-
         <Button
             android:id="@+id/btnLoginExtension"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:text="@string/btn_login_extension_label"
-            app:layout_constraintTop_toBottomOf="@id/btnSaveExtension" />
-
-        <Button
-            android:id="@+id/btnSyncExtension"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/btn_sync_extension_label"
-            app:layout_constraintTop_toBottomOf="@id/btnLoginExtension" />
-
-        <Button
-            android:id="@+id/btnViewTasks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Ver Mis Recordatorios"
-            app:layout_constraintTop_toBottomOf="@id/btnSyncExtension" />
+            app:layout_constraintTop_toBottomOf="@id/configSubtitle" />
 
         <TextView
             android:id="@+id/extensionStatusText"
@@ -130,7 +54,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnViewTasks" />
+            app:layout_constraintTop_toBottomOf="@id/btnLoginExtension" />
 
         <Button
             android:id="@+id/btnBack"

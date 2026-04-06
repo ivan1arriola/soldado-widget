@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.ivan1arriola.soldadowidget"
-        minSdk = 21
+        minSdk = 34
         targetSdk = 35
         versionCode = 3
         versionName = "1.2.0"

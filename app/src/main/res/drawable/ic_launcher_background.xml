@@ -4,30 +4,39 @@
         <shape android:shape="rectangle">
             <gradient
                 android:angle="315"
-                android:startColor="#223B1F"
-                android:centerColor="#2F512A"
-                android:endColor="#1A2816" />
+                android:startColor="#2F5A2A"
+                android:centerColor="#4F8A45"
+                android:endColor="#1F3A1A" />
+        </shape>
+    </item>
+
+    <item android:left="6dp" android:top="6dp" android:right="6dp" android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#A7D48D" />
+            <corners android:radius="18dp" />
         </shape>
     </item>
 
     <item android:left="8dp" android:top="10dp" android:right="64dp" android:bottom="70dp">
         <shape android:shape="oval">
-            <solid android:color="#335C3A" />
+            <solid android:color="#5D9A62" />
         </shape>
     </item>
     <item android:left="56dp" android:top="20dp" android:right="14dp" android:bottom="62dp">
         <shape android:shape="oval">
-            <solid android:color="#2B4724" />
+            <solid android:color="#4A7D44" />
         </shape>
     </item>
     <item android:left="20dp" android:top="56dp" android:right="48dp" android:bottom="26dp">
         <shape android:shape="oval">
-            <solid android:color="#3E6442" />
+            <solid android:color="#75B070" />
         </shape>
     </item>
     <item android:left="62dp" android:top="62dp" android:right="10dp" android:bottom="14dp">
         <shape android:shape="oval">
-            <solid android:color="#27411F" />
+            <solid android:color="#3D6A33" />
         </shape>
     </item>
 
@@ -39,7 +48,7 @@
                 android:centerX="0.5"
                 android:centerY="0.4"
                 android:startColor="#15000000"
-                android:endColor="#77000000" />
+                android:endColor="#55000000" />
         </shape>
     </item>
 </layer-list>

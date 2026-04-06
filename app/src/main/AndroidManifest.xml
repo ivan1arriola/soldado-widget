@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoldadoWidget">
 
@@ -19,12 +19,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
 
-        <activity
-            android:name=".ConfigActivity"
-            android:exported="true"
-            android:label="Configuración de Red">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -35,6 +30,11 @@
                     android:pathPrefix="/callback" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ConfigActivity"
+            android:exported="false"
+            android:label="Configuracion" />
 
         <activity
             android:name=".RemindersListActivity"

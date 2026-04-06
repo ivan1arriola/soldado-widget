@@ -1,54 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="64dp"
-    android:height="64dp">
-    <!-- Frame 3: Sueño/Cansancio (Ojos cerrados, más bajo) -->
-    <!-- Sombra del suelo -->
-    <item android:top="58dp" android:left="20dp" android:right="20dp" android:bottom="2dp">
-        <shape android:shape="oval"><solid android:color="#20000000" /></shape>
-    </item>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/soldado_frame_0" />
 
-    <!-- Cuerpo (Un poco más bajo) -->
-    <item android:top="32dp" android:left="18dp" android:right="18dp" android:bottom="4dp">
+    <item android:top="31dp" android:left="50dp" android:right="71dp" android:bottom="91dp">
         <shape android:shape="rectangle">
-            <solid android:color="#78866B" />
-            <corners android:radius="20dp" />
+            <solid android:color="#1F2A1B" />
+            <corners android:radius="2dp" />
         </shape>
     </item>
 
-    <!-- Cinturón -->
-    <item android:top="48dp" android:left="18dp" android:right="18dp" android:bottom="12dp">
-        <shape android:shape="rectangle"><solid android:color="#3E2723" /></shape>
+    <item android:top="31dp" android:left="71dp" android:right="50dp" android:bottom="91dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#1F2A1B" />
+            <corners android:radius="2dp" />
+        </shape>
     </item>
 
-    <!-- Cabeza (Un poco inclinada) -->
-    <item android:top="10dp" android:left="16dp" android:right="16dp" android:bottom="26dp">
-        <shape android:shape="oval"><solid android:color="#FFDBAC" /></shape>
+    <item android:top="34dp" android:left="54dp" android:right="54dp" android:bottom="82dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#6C4A3A" />
+            <corners android:radius="2dp" />
+        </shape>
     </item>
 
-    <!-- Casco -->
-    <item android:top="6dp" android:left="15dp" android:right="15dp" android:bottom="40dp">
-        <shape android:shape="oval"><solid android:color="#556B2F" /></shape>
-    </item>
-
-    <!-- Ojos (Cerrados) -->
-    <item android:top="24dp" android:left="25dp" android:right="35dp" android:bottom="28dp">
-        <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="2dp"/></shape>
-    </item>
-    <item android:top="24dp" android:left="35dp" android:right="25dp" android:bottom="28dp">
-        <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="2dp"/></shape>
-    </item>
-
-    <!-- Burbuja de sueño Zzz -->
-    <item android:top="4dp" android:left="42dp" android:right="12dp" android:bottom="50dp">
-        <shape android:shape="oval"><solid android:color="#A0FFFFFF" /></shape>
-    </item>
-
-    <!-- Brazos caídos -->
-    <item android:top="40dp" android:left="12dp" android:right="48dp" android:bottom="14dp">
-        <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
-    </item>
-    <item android:top="40dp" android:left="48dp" android:right="12dp" android:bottom="14dp">
-        <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
+    <item android:top="8dp" android:left="84dp" android:right="26dp" android:bottom="92dp">
+        <shape android:shape="oval">
+            <solid android:color="#88E6F3FF" />
+        </shape>
     </item>
 </layer-list>

@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
@@ -19,9 +18,6 @@ import java.util.UUID
 
 class ConfigActivity : AppCompatActivity() {
 
-    private lateinit var inputApiBaseUrl: EditText
-    private lateinit var inputUsername: EditText
-    private lateinit var inputPassword: EditText
     private lateinit var statusText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,55 +27,24 @@ class ConfigActivity : AppCompatActivity() {
         val root = findViewById<View>(R.id.configRoot)
         applySystemInsets(root)
 
-        inputApiBaseUrl = findViewById(R.id.inputApiBaseUrl)
-        inputUsername = findViewById(R.id.inputUsername)
-        inputPassword = findViewById(R.id.inputPassword)
-        val btnSave = findViewById<Button>(R.id.btnSaveExtension)
         val btnLogin = findViewById<Button>(R.id.btnLoginExtension)
-        val btnSync = findViewById<Button>(R.id.btnSyncExtension)
         val btnBack = findViewById<Button>(R.id.btnBack)
-        val btnViewTasks = findViewById<Button>(R.id.btnViewTasks)
         statusText = findViewById(R.id.extensionStatusText)
 
-        // Cargar config actual
         val config = ReminderSync.readConfig(this)
         val normalizedConfig = config.copy(baseUrl = FIXED_BASE_URL)
         if (normalizedConfig.baseUrl != config.baseUrl) {
             ReminderSync.saveConfig(this, normalizedConfig)
         }
 
-        inputApiBaseUrl.setText(FIXED_BASE_URL)
-        inputApiBaseUrl.isEnabled = false
-        inputApiBaseUrl.isFocusable = false
-        inputApiBaseUrl.isFocusableInTouchMode = false
-        inputApiBaseUrl.isClickable = false
-        inputUsername.setText(config.username)
-
-        btnSave.setOnClickListener {
-            val currentConfig = ReminderSync.readConfig(this)
-            val newConfig = ReminderSync.ExtensionConfig(
-                baseUrl = FIXED_BASE_URL,
-                username = inputUsername.text.toString(),
-                usuarioId = currentConfig.usuarioId,
-                token = currentConfig.token,
-                tokenExpiresAtMs = currentConfig.tokenExpiresAtMs
-            )
-            ReminderSync.saveConfig(this, newConfig)
-            statusText.text = getString(R.string.extension_status_ready_to_login)
-            triggerWidgetRefresh()
+        statusText.text = if (config.isConfigured) {
+            getString(R.string.extension_status_ready)
+        } else {
+            getString(R.string.extension_status_unconfigured)
         }
 
         btnLogin.setOnClickListener {
             startWebLogin()
-        }
-
-        btnSync.setOnClickListener {
-            syncNow(statusText)
-        }
-
-        btnViewTasks.setOnClickListener {
-            val intent = Intent(this, RemindersListActivity::class.java)
-            startActivity(intent)
         }
 
         btnBack.setOnClickListener {
@@ -93,36 +58,6 @@ class ConfigActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         handleWebLoginCallback(intent)
-    }
-
-    private fun syncNow(statusView: TextView) {
-        val config = ReminderSync.readConfig(this)
-        if (config.username.isBlank()) {
-            statusView.text = getString(R.string.extension_status_unconfigured)
-            return
-        }
-
-        if (ReminderSync.isTokenExpired(config)) {
-            statusView.text = getString(R.string.extension_status_session_expired)
-            return
-        }
-
-        statusView.text = getString(R.string.extension_status_syncing)
-        Thread {
-            val snapshot = ReminderSync.fetchSnapshot(this)
-            runOnUiThread {
-                if (snapshot == null) {
-                    statusView.text = getString(R.string.extension_status_sync_fail)
-                } else {
-                    statusView.text = getString(
-                        R.string.extension_status_sync_ok,
-                        snapshot.pendingCount,
-                        snapshot.urgentCount
-                    )
-                    triggerWidgetRefresh()
-                }
-            }
-        }.start()
     }
 
     private fun startWebLogin() {
@@ -177,10 +112,6 @@ class ConfigActivity : AppCompatActivity() {
         statusText.text = result.message
         if (result.success) {
             prefs.edit { remove(KEY_WIDGET_WEB_AUTH_STATE) }
-            if (username.isNotBlank()) {
-                inputUsername.setText(username)
-            }
-            inputPassword.setText("")
             triggerWidgetRefresh()
         }
     }
