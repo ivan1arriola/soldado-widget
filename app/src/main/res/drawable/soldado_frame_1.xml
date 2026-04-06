@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp">
     <!-- Frame 1: Movimiento ligero (Brazos un poco más arriba) -->
-
     <!-- Sombra del suelo -->
-    <item android:top="64dp" android:left="20dp" android:right="20dp" android:bottom="2dp">
+    <item android:top="58dp" android:left="20dp" android:right="20dp" android:bottom="2dp">
         <shape android:shape="oval"><solid android:color="#20000000" /></shape>
     </item>
 
     <!-- Cuerpo -->
-    <item android:top="28dp" android:left="18dp" android:right="18dp" android:bottom="10dp">
+    <item android:top="26dp" android:left="18dp" android:right="18dp" android:bottom="8dp">
         <shape android:shape="rectangle">
             <solid android:color="#78866B" />
             <corners android:radius="20dp" />
@@ -16,68 +17,35 @@
     </item>
 
     <!-- Detalle: Cinturón Militar -->
-    <item android:top="48dp" android:left="18dp" android:right="18dp" android:bottom="24dp">
+    <item android:top="43dp" android:left="18dp" android:right="18dp" android:bottom="16dp">
         <shape android:shape="rectangle">
             <solid android:color="#3E2723" />
         </shape>
     </item>
-    <item android:top="47dp" android:left="32dp" android:right="32dp" android:bottom="23dp">
-        <shape android:shape="rectangle">
-            <solid android:color="#FFD700" />
-            <corners android:radius="1dp" />
-        </shape>
-    </item>
 
     <!-- Cabeza -->
-    <item android:top="4dp" android:left="16dp" android:right="16dp" android:bottom="34dp">
+    <item android:top="4dp" android:left="16dp" android:right="16dp" android:bottom="30dp">
         <shape android:shape="oval"><solid android:color="#FFDBAC" /></shape>
     </item>
 
     <!-- Casco -->
-    <item android:top="0dp" android:left="15dp" android:right="15dp" android:bottom="50dp">
+    <item android:top="0dp" android:left="15dp" android:right="15dp" android:bottom="44dp">
         <shape android:shape="oval"><solid android:color="#556B2F" /></shape>
     </item>
-    <item android:top="12dp" android:left="15dp" android:right="15dp" android:bottom="54dp">
-        <shape android:shape="rectangle"><solid android:color="#556B2F" /><corners android:bottomLeftRadius="4dp" android:bottomRightRadius="4dp"/></shape>
-    </item>
 
-    <!-- Ojos (Normalizados para evitar deformación) -->
-    <item android:top="20dp" android:left="27dp" android:right="37dp" android:bottom="38dp">
+    <!-- Ojos -->
+    <item android:top="18dp" android:left="25dp" android:right="35dp" android:bottom="34dp">
         <shape android:shape="oval"><solid android:color="#212121" /></shape>
     </item>
-    <item android:top="20dp" android:left="37dp" android:right="27dp" android:bottom="38dp">
+    <item android:top="18dp" android:left="35dp" android:right="25dp" android:bottom="34dp">
         <shape android:shape="oval"><solid android:color="#212121" /></shape>
     </item>
 
-    <!-- Pupilas -->
-    <item android:top="22dp" android:left="29dp" android:right="39dp" android:bottom="40dp">
-        <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
-    </item>
-    <item android:top="22dp" android:left="39dp" android:right="29dp" android:bottom="40dp">
-        <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
-    </item>
-
-    <!-- Brillos -->
-    <item android:top="21dp" android:left="29dp" android:right="41dp" android:bottom="42dp">
-        <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
-    </item>
-    <item android:top="21dp" android:left="39dp" android:right="31dp" android:bottom="42dp">
-        <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
-    </item>
-
-    <!-- Mejillas sonrosadas -->
-    <item android:top="26dp" android:left="24dp" android:right="42dp" android:bottom="40dp">
-        <shape android:shape="oval"><solid android:color="#40FF8080" /></shape>
-    </item>
-    <item android:top="26dp" android:left="42dp" android:right="24dp" android:bottom="40dp">
-        <shape android:shape="oval"><solid android:color="#40FF8080" /></shape>
-    </item>
-
-    <!-- Brazos un poco más arriba (Dando vida) -->
-    <item android:top="34dp" android:left="8dp" android:right="56dp" android:bottom="22dp">
+    <!-- Brazos un poco más arriba -->
+    <item android:top="32dp" android:left="8dp" android:right="52dp" android:bottom="22dp">
         <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
     </item>
-    <item android:top="34dp" android:left="56dp" android:right="8dp" android:bottom="22dp">
+    <item android:top="32dp" android:left="52dp" android:right="8dp" android:bottom="22dp">
         <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
     </item>
 </layer-list>

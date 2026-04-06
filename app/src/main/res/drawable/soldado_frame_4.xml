@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp">
     <!-- Frame 4: Parpadeo (Ojos como líneas) -->
     <!-- Sombra del suelo -->
-    <item android:top="64dp" android:left="20dp" android:right="20dp" android:bottom="2dp">
+    <item android:top="58dp" android:left="20dp" android:right="20dp" android:bottom="2dp">
         <shape android:shape="oval"><solid android:color="#20000000" /></shape>
     </item>
 
     <!-- Cuerpo -->
-    <item android:top="30dp" android:left="18dp" android:right="18dp" android:bottom="8dp">
+    <item android:top="28dp" android:left="18dp" android:right="18dp" android:bottom="6dp">
         <shape android:shape="rectangle">
             <solid android:color="#78866B" />
             <corners android:radius="20dp" />
@@ -15,36 +17,36 @@
     </item>
 
     <!-- Cinturón -->
-    <item android:top="50dp" android:left="18dp" android:right="18dp" android:bottom="22dp">
+    <item android:top="45dp" android:left="18dp" android:right="18dp" android:bottom="14dp">
         <shape android:shape="rectangle"><solid android:color="#3E2723" /></shape>
     </item>
-    <item android:top="49dp" android:left="34dp" android:right="34dp" android:bottom="21dp">
+    <item android:top="44dp" android:left="30dp" android:right="30dp" android:bottom="13dp">
         <shape android:shape="rectangle"><solid android:color="#FFD700" /><corners android:radius="1dp" /></shape>
     </item>
 
     <!-- Cabeza -->
-    <item android:top="6dp" android:left="16dp" android:right="16dp" android:bottom="32dp">
+    <item android:top="6dp" android:left="16dp" android:right="16dp" android:bottom="28dp">
         <shape android:shape="oval"><solid android:color="#FFDBAC" /></shape>
     </item>
 
     <!-- Casco -->
-    <item android:top="2dp" android:left="15dp" android:right="15dp" android:bottom="48dp">
+    <item android:top="2dp" android:left="15dp" android:right="15dp" android:bottom="42dp">
         <shape android:shape="oval"><solid android:color="#556B2F" /></shape>
     </item>
 
-    <!-- Ojos (Parpadeando - líneas horizontales de 16x5dp) -->
-    <item android:top="25dp" android:left="27dp" android:right="37dp" android:bottom="30dp">
+    <!-- Ojos (Parpadeando) -->
+    <item android:top="23dp" android:left="25dp" android:right="35dp" android:bottom="30dp">
         <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="1dp"/></shape>
     </item>
-    <item android:top="25dp" android:left="37dp" android:right="27dp" android:bottom="30dp">
+    <item android:top="23dp" android:left="35dp" android:right="25dp" android:bottom="30dp">
         <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="1dp"/></shape>
     </item>
 
-    <!-- Brazos pequeños -->
-    <item android:top="38dp" android:left="10dp" android:right="54dp" android:bottom="18dp">
+    <!-- Brazos -->
+    <item android:top="36dp" android:left="10dp" android:right="50dp" android:bottom="18dp">
         <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
     </item>
-    <item android:top="38dp" android:left="54dp" android:right="10dp" android:bottom="18dp">
+    <item android:top="36dp" android:left="50dp" android:right="10dp" android:bottom="18dp">
         <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
     </item>
 </layer-list>
