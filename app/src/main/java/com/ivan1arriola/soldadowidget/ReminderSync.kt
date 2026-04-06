@@ -8,27 +8,55 @@ import java.net.URL
 
 object ReminderSync {
 
+    data class ReminderTask(
+        val tareaId: String,
+        val titulo: String,
+        val nota: String,
+        val fechaLimite: String?,
+        val prioridad: String,
+        val completada: Boolean,
+        val updatedAt: String
+    )
+
     data class ReminderSnapshot(
         val pendingCount: Int,
         val urgentCount: Int,
         val topTitle: String?
     )
 
+    data class TaskListResponse(
+        val usuarioId: String,
+        val username: String,
+        val generatedAt: String,
+        val total: Int,
+        val tareas: List<ReminderTask>
+    )
+
     data class ExtensionConfig(
         val baseUrl: String,
+        val username: String,
         val usuarioId: String,
-        val token: String
+        val token: String,
+        val tokenExpiresAtMs: Long
     ) {
         val isConfigured: Boolean
-            get() = baseUrl.isNotBlank() && usuarioId.isNotBlank() && token.isNotBlank()
+            get() = baseUrl.isNotBlank() && usuarioId.isNotBlank() && token.isNotBlank() && !isTokenExpired(this)
     }
+
+    data class LoginResult(
+        val success: Boolean,
+        val message: String,
+        val config: ExtensionConfig? = null
+    )
 
     fun readConfig(context: Context): ExtensionConfig {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         return ExtensionConfig(
-            baseUrl = prefs.getString(KEY_BASE_URL, "")?.trim().orEmpty(),
+            baseUrl = prefs.getString(KEY_BASE_URL, "https://deposito-apt1.vercel.app/")?.trim().orEmpty(),
+            username = prefs.getString(KEY_USERNAME, "")?.trim().orEmpty(),
             usuarioId = prefs.getString(KEY_USUARIO_ID, "")?.trim().orEmpty(),
-            token = prefs.getString(KEY_TOKEN, "")?.trim().orEmpty()
+            token = prefs.getString(KEY_TOKEN, "")?.trim().orEmpty(),
+            tokenExpiresAtMs = prefs.getLong(KEY_TOKEN_EXPIRES_AT_MS, 0L)
         )
     }
 
@@ -36,12 +64,109 @@ object ReminderSync {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit {
             putString(KEY_BASE_URL, config.baseUrl.trim())
+            putString(KEY_USERNAME, config.username.trim())
             putString(KEY_USUARIO_ID, config.usuarioId.trim())
             putString(KEY_TOKEN, config.token.trim())
+            putLong(KEY_TOKEN_EXPIRES_AT_MS, config.tokenExpiresAtMs)
         }
     }
 
     fun isConfigured(context: Context): Boolean = readConfig(context).isConfigured
+
+    fun isTokenExpired(config: ExtensionConfig): Boolean {
+        val expiresAt = config.tokenExpiresAtMs
+        if (expiresAt <= 0L) return true
+        return System.currentTimeMillis() >= expiresAt
+    }
+
+    fun login(context: Context, baseUrlRaw: String, usernameRaw: String, passwordRaw: String): LoginResult {
+        val baseUrl = baseUrlRaw.trim()
+        val username = usernameRaw.trim()
+        val password = passwordRaw.trim()
+
+        if (baseUrl.isBlank() || username.isBlank() || password.isBlank()) {
+            return LoginResult(success = false, message = "Completa URL, usuario y password.")
+        }
+
+        val endpoint = baseUrl.trimEnd('/') + "/api/extensions/soldado-widget/login"
+        val connection = (URL(endpoint).openConnection() as HttpURLConnection).apply {
+            requestMethod = "POST"
+            connectTimeout = 7000
+            readTimeout = 7000
+            doOutput = true
+            setRequestProperty("Accept", "application/json")
+            setRequestProperty("Content-Type", "application/json")
+        }
+
+        return try {
+            val body = JSONObject().apply {
+                put("username", username)
+                put("password", password)
+            }
+
+            connection.outputStream.bufferedWriter(Charsets.UTF_8).use {
+                it.write(body.toString())
+            }
+
+            val status = connection.responseCode
+            val responseText = readResponseBody(connection, status)
+            val json = parseJsonSafe(responseText)
+
+            if (status !in 200..299) {
+                val message = json?.optString("error")?.trim().orEmpty()
+                  val displayMessage = when {
+                      message.isNotEmpty() -> message
+                      responseText.contains("<!DOCTYPE") || responseText.contains("<html") -> "Error del servidor (HTTP $status, posible redireccion/HTML). Verifica URL."
+                      status == 307 -> "Redireccion del servidor (HTTP 307). Verifica URL de Deposito_ART1."
+                      status == 401 || status == 403 -> "Credenciales invalidas o no autorizadas (HTTP $status)."
+                      else -> "Error HTTP $status: ${responseText.take(100)}"
+                  }
+                  return LoginResult(
+                      success = false,
+                      message = displayMessage
+
+            val accessToken = json?.optString("accessToken")?.trim().orEmpty()
+            val expiresAtRaw = json?.optString("expiresAt")?.trim().orEmpty()
+            val usuario = json?.optJSONObject("usuario")
+            val usuarioId = usuario?.optString("usuarioId")?.trim().orEmpty()
+
+            if (accessToken.isBlank() || usuarioId.isBlank() || expiresAtRaw.isBlank()) {
+                  return LoginResult(
+                      success = false,
+                      message = "Respuesta invalida del servidor. JSON incompleto: ${responseText.take(200)}"
+                  )
+
+            val expiresAtMs = try {
+                java.time.Instant.parse(expiresAtRaw).toEpochMilli()
+            } catch (_: Throwable) {
+                0L
+            }
+
+            if (expiresAtMs <= 0L) {
+                return LoginResult(success = false, message = "No se pudo interpretar expiracion de sesion.")
+            }
+
+            val config = ExtensionConfig(
+                baseUrl = baseUrl,
+                username = username,
+                usuarioId = usuarioId,
+                token = accessToken,
+                tokenExpiresAtMs = expiresAtMs
+            )
+
+            saveConfig(context, config)
+
+            LoginResult(
+                success = true,
+                message = "Sesion iniciada para $username.",
+                config = config
+            )
+        } catch (_: Throwable) {
+            LoginResult(success = false, message = "No se pudo conectar con Deposito_ART1.")
+        } finally {
+            connection.disconnect()
+        }
+    }
 
     fun fetchSnapshot(context: Context): ReminderSnapshot? {
         val config = readConfig(context)
@@ -49,9 +174,7 @@ object ReminderSync {
 
         val endpoint =
             config.baseUrl.trimEnd('/') +
-                "/api/extensions/soldado-widget/recordatorios?usuarioId=" +
-                urlEncode(config.usuarioId) +
-                "&limit=3"
+                "/api/extensions/soldado-widget/recordatorios?limit=3"
 
         val connection = (URL(endpoint).openConnection() as HttpURLConnection).apply {
             requestMethod = "GET"
@@ -88,7 +211,92 @@ object ReminderSync {
         }
     }
 
-    fun saveSnapshotForWidget(context: Context, appWidgetId: Int, snapshot: ReminderSnapshot?) {
+    fun fetchTasks(context: Context): TaskListResponse? {
+        val config = readConfig(context)
+        if (!config.isConfigured) return null
+
+        val endpoint =
+            config.baseUrl.trimEnd('/') +
+                "/api/extensions/soldado-widget/tareas?includeCompleted=true&limit=100"
+
+        val connection = (URL(endpoint).openConnection() as HttpURLConnection).apply {
+            requestMethod = "GET"
+            connectTimeout = 7000
+            readTimeout = 7000
+            setRequestProperty("Accept", "application/json")
+            setRequestProperty("Authorization", "Bearer ${config.token}")
+        }
+
+        return try {
+            val status = connection.responseCode
+            if (status !in 200..299) return null
+
+            val payload = connection.inputStream.bufferedReader().use { it.readText() }
+            val json = JSONObject(payload)
+
+            val usuarioId = json.optString("usuarioId", "")
+            val username = json.optString("username", "")
+            val generatedAt = json.optString("generatedAt", "")
+            val total = json.optInt("total", 0)
+
+            val tareasArray = json.optJSONArray("tareas") ?: return null
+            val tareas = mutableListOf<ReminderTask>()
+
+            for (i in 0 until tareasArray.length()) {
+                val tareaJson = tareasArray.optJSONObject(i) ?: continue
+                tareas.add(
+                    ReminderTask(
+                        tareaId = tareaJson.optString("tareaId", ""),
+                        titulo = tareaJson.optString("titulo", ""),
+                        nota = tareaJson.optString("nota", ""),
+                        fechaLimite = tareaJson.optString("fechaLimite", null),
+                        prioridad = tareaJson.optString("prioridad", "NORMAL"),
+                        completada = tareaJson.optBoolean("completada", false),
+                        updatedAt = tareaJson.optString("updatedAt", "")
+                    )
+                )
+            }
+
+            TaskListResponse(
+                usuarioId = usuarioId,
+                username = username,
+                generatedAt = generatedAt,
+                total = total,
+                tareas = tareas
+            )
+        } catch (_: Throwable) {
+            null
+        } finally {
+            connection.disconnect()
+        }
+    }
+
+    fun completeTask(context: Context, tareaId: String): Boolean {
+        val config = readConfig(context)
+        if (!config.isConfigured) return false
+
+        val endpoint =
+            config.baseUrl.trimEnd('/') +
+                "/api/extensions/soldado-widget/tareas/$tareaId/complete"
+
+        val connection = (URL(endpoint).openConnection() as HttpURLConnection).apply {
+            requestMethod = "PATCH"
+            connectTimeout = 7000
+            readTimeout = 7000
+            setRequestProperty("Accept", "application/json")
+            setRequestProperty("Authorization", "Bearer ${config.token}")
+        }
+
+        return try {
+            val status = connection.responseCode
+            status in 200..299
+        } catch (_: Throwable) {
+            false
+        } finally {
+            connection.disconnect()
+        }
+    }
+
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit {
             putLong("$KEY_LAST_SYNC_PREFIX$appWidgetId", System.currentTimeMillis())
@@ -156,14 +364,26 @@ object ReminderSync {
         return value.take(maxLength - 3) + "..."
     }
 
-    private fun urlEncode(value: String): String {
-        return java.net.URLEncoder.encode(value, Charsets.UTF_8.name())
+    private fun parseJsonSafe(value: String): JSONObject? {
+        return try {
+            JSONObject(value)
+        } catch (_: Throwable) {
+            null
+        }
+    }
+
+    private fun readResponseBody(connection: HttpURLConnection, status: Int): String {
+        val stream = if (status in 200..299) connection.inputStream else connection.errorStream
+        if (stream == null) return ""
+        return stream.bufferedReader().use { it.readText() }
     }
 
     private const val PREFS_NAME = "soldado_widget_prefs"
     private const val KEY_BASE_URL = "extension_base_url"
+    private const val KEY_USERNAME = "extension_username"
     private const val KEY_USUARIO_ID = "extension_usuario_id"
     private const val KEY_TOKEN = "extension_token"
+    private const val KEY_TOKEN_EXPIRES_AT_MS = "extension_token_expires_at_ms"
 
     private const val KEY_PENDING_PREFIX = "reminder_pending_"
     private const val KEY_URGENT_PREFIX = "reminder_urgent_"

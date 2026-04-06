@@ -37,91 +37,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/titleText" />
 
-        <EditText
-            android:id="@+id/inputApiBaseUrl"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/btnGoToConfig"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#A4B09A"
-            android:hint="@string/hint_extension_base_url"
-            android:imeOptions="actionNext"
-            android:inputType="textUri"
-            android:maxLines="1"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#BBC5B4"
+            android:layout_marginTop="16dp"
+            android:text="CONFIGURAR RED"
+            android:textColor="#A4B09A"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/helpText" />
-
-        <EditText
-            android:id="@+id/inputUsuarioId"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:backgroundTint="#A4B09A"
-            android:hint="@string/hint_extension_usuario_id"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#BBC5B4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputApiBaseUrl" />
-
-        <EditText
-            android:id="@+id/inputToken"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:backgroundTint="#A4B09A"
-            android:hint="@string/hint_extension_token"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#BBC5B4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputUsuarioId" />
-
-        <LinearLayout
-            android:id="@+id/extensionButtonsRow"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputToken">
-
-            <Button
-                android:id="@+id/btnSaveExtension"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="@string/btn_save_extension_label" />
-
-            <Button
-                android:id="@+id/btnSyncExtension"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_sync_extension_label" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/extensionStatusText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="@string/extension_status_unconfigured"
-            android:textAlignment="center"
-            android:textColor="#DCE8D5"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/extensionButtonsRow" />
 
         <FrameLayout
             android:id="@+id/soldierContainer"
@@ -132,7 +58,7 @@
             app:layout_constraintBottom_toTopOf="@id/mainSoldierPhrase"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/extensionStatusText"
+            app:layout_constraintTop_toBottomOf="@id/btnGoToConfig"
             app:layout_constraintVertical_bias="0.3">
 
             <ImageView

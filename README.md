@@ -32,17 +32,18 @@ La app ahora puede actuar como extension de `Deposito_ART1` y mostrar recordator
 1. En `Deposito_ART1` configura una variable de entorno:
 
 ```env
-SOLDADO_WIDGET_EXTENSION_TOKEN="tu_token_largo_y_secreto"
+SOLDADO_WIDGET_AUTH_SECRET="tu_secreto_largo_y_unico"
 ```
 
 2. Inicia `Deposito_ART1`.
 3. Abre la app `Soldado Widget` y completa:
 	- URL base (ej: `https://tu-dominio`)
-	- `usuarioId` del usuario destino en Deposito_ART1
-	- token de extension (el mismo del servidor)
-4. Pulsa `Guardar extension` y luego `Sincronizar recordatorios`.
+	- usuario de Deposito_ART1
+	- password de Deposito_ART1
+4. Pulsa `Guardar configuracion`, luego `Iniciar sesion` y finalmente `Sincronizar recordatorios`.
 
 Endpoint usado por el widget:
 
-- `GET /api/extensions/soldado-widget/recordatorios?usuarioId=<id>&limit=3`
-- Header: `Authorization: Bearer <token>`
+- `POST /api/extensions/soldado-widget/login`
+- `GET /api/extensions/soldado-widget/recordatorios?limit=3`
+- Header de sync: `Authorization: Bearer <accessToken>`

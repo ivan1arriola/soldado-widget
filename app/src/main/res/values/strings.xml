@@ -19,17 +19,20 @@
 
     <string name="btn_reset_label">Despertar</string>
     <string name="btn_order_label">Jugar</string>
-    <string name="btn_save_extension_label">Guardar extension</string>
+    <string name="btn_save_extension_label">Guardar configuracion</string>
+    <string name="btn_login_extension_label">Iniciar sesion</string>
     <string name="btn_sync_extension_label">Sincronizar recordatorios</string>
     <string name="hint_extension_base_url">URL base Deposito_ART1 (https://...)</string>
-    <string name="hint_extension_usuario_id">Usuario ID de Deposito_ART1</string>
-    <string name="hint_extension_token">Token de extension</string>
-    <string name="extension_status_unconfigured">Completa URL, usuario y token para conectar con Deposito_ART1.</string>
-    <string name="extension_status_ready">Extension configurada. Puedes sincronizar cuando quieras.</string>
-    <string name="extension_status_saved">Configuracion guardada. Sincronizando widgets...</string>
+    <string name="hint_extension_username">Usuario de Deposito_ART1</string>
+    <string name="hint_extension_password">Password de Deposito_ART1</string>
+    <string name="extension_status_unconfigured">Completa URL y usuario para conectar con Deposito_ART1.</string>
+    <string name="extension_status_ready">Extension configurada. Puedes iniciar sesion.</string>
+    <string name="extension_status_ready_to_login">Configuracion guardada. Ahora inicia sesion.</string>
+    <string name="extension_status_authenticating">Iniciando sesion...</string>
     <string name="extension_status_syncing">Sincronizando recordatorios...</string>
     <string name="extension_status_sync_ok">Sincronizacion OK: %1$d pendientes, %2$d urgentes.</string>
-    <string name="extension_status_sync_fail">No se pudo sincronizar. Revisa URL/token y conectividad.</string>
+    <string name="extension_status_sync_fail">No se pudo sincronizar. Revisa conectividad o vuelve a iniciar sesion.</string>
+    <string name="extension_status_session_expired">Sesion expirada. Inicia sesion nuevamente.</string>
 
     <string name="reminder_line_unconfigured">Recordatorios: sin configurar</string>
     <string name="reminder_line_clear">Recordatorios: al dia</string>
@@ -39,6 +42,12 @@
     <string name="reminder_phrase_pending">Tenes %1$d pendiente(s) en Deposito.</string>
     <string name="reminder_phrase_urgent">Atencion: %1$d tarea(s) urgente(s).</string>
     <string name="reminder_phrase_next">Proxima tarea: %1$s</string>
+
+    <string name="reminder_list_unconfigured">Configura conectividad en primero.</string>
+    <string name="reminder_list_loading">Cargando tareas...</string>
+    <string name="reminder_list_load_failed">No se pudieron cargar las tareas.</string>
+    <string name="reminder_list_empty">Sin tareas pendientes.</string>
+    <string name="reminder_list_count">%1$d tarea(s) en total</string>
 
     <string name="soldado_phrase_guard_on">¡En guardia! Nadie pasará.</string>
     <string name="soldado_phrase_guard_off">¡Descanso! ¿Qué vamos a hacer ahora?</string>

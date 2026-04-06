@@ -21,6 +21,16 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ConfigActivity"
+            android:exported="false"
+            android:label="Configuración de Red" />
+
+        <activity
+            android:name=".RemindersListActivity"
+            android:exported="false"
+            android:label="Mis Recordatorios" />
+
         <receiver
             android:name=".SoldadoWidgetProvider"
             android:exported="true">

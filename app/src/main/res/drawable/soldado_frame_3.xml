@@ -25,12 +25,20 @@
         <shape android:shape="oval"><solid android:color="#556B2F" /></shape>
     </item>
 
-    <!-- Ojos (Lineas = Dormido) -->
-    <item android:top="28dp" android:left="28dp" android:right="38dp" android:bottom="35dp">
-        <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="1dp"/></shape>
+    <!-- Ojos (Cerrados pero con detalle de pestañas/pupila oculta) -->
+    <item android:top="28dp" android:left="26dp" android:right="36dp" android:bottom="35dp">
+        <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="2dp"/></shape>
     </item>
-    <item android:top="28dp" android:left="38dp" android:right="28dp" android:bottom="35dp">
-        <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="1dp"/></shape>
+    <item android:top="28dp" android:left="36dp" android:right="26dp" android:bottom="35dp">
+        <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="2dp"/></shape>
+    </item>
+
+    <!-- Brillo tenue de sueño -->
+    <item android:top="29dp" android:left="28dp" android:right="38dp" android:bottom="33dp">
+        <shape android:shape="oval"><solid android:color="#40FFFFFF" /></shape>
+    </item>
+    <item android:top="29dp" android:left="38dp" android:right="28dp" android:bottom="33dp">
+        <shape android:shape="oval"><solid android:color="#40FFFFFF" /></shape>
     </item>
 
     <!-- Burbuja de sueño Zzz (Minimalista) -->

@@ -26,19 +26,36 @@
         <shape android:shape="rectangle"><solid android:color="#556B2F" /><corners android:bottomLeftRadius="4dp" android:bottomRightRadius="4dp"/></shape>
     </item>
 
-    <!-- Ojos (Grandes y brillantes) -->
-    <item android:top="22dp" android:left="28dp" android:right="38dp" android:bottom="40dp">
+    <!-- Ojos (Grandes, con Pupilas y Brillos) -->
+    <item android:top="22dp" android:left="27dp" android:right="37dp" android:bottom="40dp">
         <shape android:shape="oval"><solid android:color="#212121" /></shape>
     </item>
-    <item android:top="22dp" android:left="38dp" android:right="28dp" android:bottom="40dp">
+    <item android:top="22dp" android:left="37dp" android:right="27dp" android:bottom="40dp">
         <shape android:shape="oval"><solid android:color="#212121" /></shape>
     </item>
-    <!-- Brillo en ojos -->
-    <item android:top="23dp" android:left="30dp" android:right="40dp" android:bottom="43dp">
+
+    <!-- Pupilas (Marrón oscuro para profundidad) -->
+    <item android:top="24dp" android:left="29dp" android:right="39dp" android:bottom="42dp">
+        <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
+    </item>
+    <item android:top="24dp" android:left="39dp" android:right="29dp" android:bottom="42dp">
+        <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
+    </item>
+
+    <!-- Brillos principales -->
+    <item android:top="23dp" android:left="29dp" android:right="41dp" android:bottom="44dp">
         <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
     </item>
-    <item android:top="23dp" android:left="40dp" android:right="30dp" android:bottom="43dp">
+    <item android:top="23dp" android:left="39dp" android:right="31dp" android:bottom="44dp">
         <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
+    </item>
+
+    <!-- Brillos secundarios pequeños -->
+    <item android:top="27dp" android:left="33dp" android:right="40dp" android:bottom="41dp">
+        <shape android:shape="oval"><solid android:color="#A0FFFFFF" /></shape>
+    </item>
+    <item android:top="27dp" android:left="40dp" android:right="33dp" android:bottom="41dp">
+        <shape android:shape="oval"><solid android:color="#A0FFFFFF" /></shape>
     </item>
 
     <!-- Sonrisa pequeña -->

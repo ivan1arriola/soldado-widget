@@ -24,32 +24,50 @@ class ConfigActivity : AppCompatActivity() {
         applySystemInsets(root)
 
         val inputApiBaseUrl = findViewById<EditText>(R.id.inputApiBaseUrl)
-        val inputUsuarioId = findViewById<EditText>(R.id.inputUsuarioId)
-        val inputToken = findViewById<EditText>(R.id.inputToken)
+        val inputUsername = findViewById<EditText>(R.id.inputUsername)
+        val inputPassword = findViewById<EditText>(R.id.inputPassword)
         val btnSave = findViewById<Button>(R.id.btnSaveExtension)
+        val btnLogin = findViewById<Button>(R.id.btnLoginExtension)
         val btnSync = findViewById<Button>(R.id.btnSyncExtension)
         val btnBack = findViewById<Button>(R.id.btnBack)
+        val btnViewTasks = findViewById<Button>(R.id.btnViewTasks)
         val statusText = findViewById<TextView>(R.id.extensionStatusText)
 
         // Cargar config actual
         val config = ReminderSync.readConfig(this)
         inputApiBaseUrl.setText(config.baseUrl)
-        inputUsuarioId.setText(config.usuarioId)
-        inputToken.setText(config.token)
+        inputUsername.setText(config.username)
 
         btnSave.setOnClickListener {
+            val currentConfig = ReminderSync.readConfig(this)
             val newConfig = ReminderSync.ExtensionConfig(
                 baseUrl = inputApiBaseUrl.text.toString(),
-                usuarioId = inputUsuarioId.text.toString(),
-                token = inputToken.text.toString()
+                username = inputUsername.text.toString(),
+                usuarioId = currentConfig.usuarioId,
+                token = currentConfig.token,
+                tokenExpiresAtMs = currentConfig.tokenExpiresAtMs
             )
             ReminderSync.saveConfig(this, newConfig)
-            statusText.text = getString(R.string.extension_status_saved)
+            statusText.text = getString(R.string.extension_status_ready_to_login)
             triggerWidgetRefresh()
+        }
+
+        btnLogin.setOnClickListener {
+            loginNow(
+                statusText = statusText,
+                baseUrl = inputApiBaseUrl.text.toString(),
+                username = inputUsername.text.toString(),
+                password = inputPassword.text.toString()
+            )
         }
 
         btnSync.setOnClickListener {
             syncNow(statusText)
+        }
+
+        btnViewTasks.setOnClickListener {
+            val intent = Intent(this, RemindersListActivity::class.java)
+            startActivity(intent)
         }
 
         btnBack.setOnClickListener {
@@ -59,8 +77,13 @@ class ConfigActivity : AppCompatActivity() {
 
     private fun syncNow(statusView: TextView) {
         val config = ReminderSync.readConfig(this)
-        if (!config.isConfigured) {
+        if (config.baseUrl.isBlank() || config.username.isBlank()) {
             statusView.text = getString(R.string.extension_status_unconfigured)
+            return
+        }
+
+        if (ReminderSync.isTokenExpired(config)) {
+            statusView.text = getString(R.string.extension_status_session_expired)
             return
         }
 
@@ -76,6 +99,24 @@ class ConfigActivity : AppCompatActivity() {
                         snapshot.pendingCount,
                         snapshot.urgentCount
                     )
+                    triggerWidgetRefresh()
+                }
+            }
+        }.start()
+    }
+
+    private fun loginNow(statusText: TextView, baseUrl: String, username: String, password: String) {
+        statusText.text = getString(R.string.extension_status_authenticating)
+        Thread {
+            val result = ReminderSync.login(
+                context = this,
+                baseUrlRaw = baseUrl,
+                usernameRaw = username,
+                passwordRaw = password
+            )
+            runOnUiThread {
+                statusText.text = result.message
+                if (result.success) {
                     triggerWidgetRefresh()
                 }
             }
