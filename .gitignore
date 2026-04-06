@@ -18,6 +18,27 @@ build/
 # IDE files
 .idea/
 *.iml
+.vscode/
+
+# Temp / logs
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.orig
+
+# Build folders used by tools
+out/
+dist/
+tmp/
+
+# Signing / secrets (local)
+*.jks
+*.keystore
+*.p12
+*.pem
+keystore.properties
 
 # Android Studio generated files
 captures/
