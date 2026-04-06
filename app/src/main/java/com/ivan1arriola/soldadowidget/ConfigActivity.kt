@@ -3,18 +3,26 @@ package com.ivan1arriola.soldadowidget
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import java.util.UUID
 
 class ConfigActivity : AppCompatActivity() {
+
+    private lateinit var inputApiBaseUrl: EditText
+    private lateinit var inputUsername: EditText
+    private lateinit var inputPassword: EditText
+    private lateinit var statusText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,15 +31,15 @@ class ConfigActivity : AppCompatActivity() {
         val root = findViewById<View>(R.id.configRoot)
         applySystemInsets(root)
 
-        val inputApiBaseUrl = findViewById<EditText>(R.id.inputApiBaseUrl)
-        val inputUsername = findViewById<EditText>(R.id.inputUsername)
-        val inputPassword = findViewById<EditText>(R.id.inputPassword)
+        inputApiBaseUrl = findViewById(R.id.inputApiBaseUrl)
+        inputUsername = findViewById(R.id.inputUsername)
+        inputPassword = findViewById(R.id.inputPassword)
         val btnSave = findViewById<Button>(R.id.btnSaveExtension)
         val btnLogin = findViewById<Button>(R.id.btnLoginExtension)
         val btnSync = findViewById<Button>(R.id.btnSyncExtension)
         val btnBack = findViewById<Button>(R.id.btnBack)
         val btnViewTasks = findViewById<Button>(R.id.btnViewTasks)
-        val statusText = findViewById<TextView>(R.id.extensionStatusText)
+        statusText = findViewById(R.id.extensionStatusText)
 
         // Cargar config actual
         val config = ReminderSync.readConfig(this)
@@ -53,12 +61,7 @@ class ConfigActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
-            loginNow(
-                statusText = statusText,
-                baseUrl = inputApiBaseUrl.text.toString(),
-                username = inputUsername.text.toString(),
-                password = inputPassword.text.toString()
-            )
+            startWebLogin(baseUrl = inputApiBaseUrl.text.toString())
         }
 
         btnSync.setOnClickListener {
@@ -73,6 +76,14 @@ class ConfigActivity : AppCompatActivity() {
         btnBack.setOnClickListener {
             finish()
         }
+
+        handleWebLoginCallback(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleWebLoginCallback(intent)
     }
 
     private fun syncNow(statusView: TextView) {
@@ -105,22 +116,70 @@ class ConfigActivity : AppCompatActivity() {
         }.start()
     }
 
-    private fun loginNow(statusText: TextView, baseUrl: String, username: String, password: String) {
-        statusText.text = getString(R.string.extension_status_authenticating)
-        Thread {
-            val result = ReminderSync.login(
-                context = this,
-                baseUrlRaw = baseUrl,
-                usernameRaw = username,
-                passwordRaw = password
-            )
-            runOnUiThread {
-                statusText.text = result.message
-                if (result.success) {
-                    triggerWidgetRefresh()
-                }
+    private fun startWebLogin(baseUrl: String) {
+        val normalizedBaseUrl = baseUrl.trim()
+        if (normalizedBaseUrl.isBlank()) {
+            statusText.text = getString(R.string.extension_status_unconfigured)
+            return
+        }
+
+        val state = UUID.randomUUID().toString()
+        val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        prefs.edit { putString(KEY_WIDGET_WEB_AUTH_STATE, state) }
+
+        val endpoint =
+            normalizedBaseUrl.trimEnd('/') +
+                "/api/extensions/soldado-widget/oauth/authorize?redirect_uri=" +
+                Uri.encode(WIDGET_WEB_AUTH_REDIRECT_URI) +
+                "&state=" +
+                Uri.encode(state)
+
+        statusText.text = getString(R.string.extension_status_opening_web_auth)
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(endpoint)))
+    }
+
+    private fun handleWebLoginCallback(intent: Intent?) {
+        val uri = intent?.data ?: return
+        if (uri.scheme != WIDGET_WEB_AUTH_SCHEME || uri.host != WIDGET_WEB_AUTH_HOST) return
+
+        val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val expectedState = prefs.getString(KEY_WIDGET_WEB_AUTH_STATE, "")?.trim().orEmpty()
+        val incomingState = uri.getQueryParameter("state")?.trim().orEmpty()
+
+        val error = uri.getQueryParameter("error")?.trim().orEmpty()
+        if (error.isNotEmpty()) {
+            statusText.text = "Login web rechazado: $error"
+            return
+        }
+
+        if (expectedState.isNotEmpty() && incomingState != expectedState) {
+            statusText.text = getString(R.string.extension_status_web_auth_state_error)
+            return
+        }
+
+        val token = uri.getQueryParameter("accessToken")?.trim().orEmpty()
+        val expiresAt = uri.getQueryParameter("expiresAt")?.trim().orEmpty()
+        val usuarioId = uri.getQueryParameter("usuarioId")?.trim().orEmpty()
+        val username = uri.getQueryParameter("username")?.trim().orEmpty()
+
+        val result = ReminderSync.saveWebAuthLogin(
+            context = this,
+            baseUrlRaw = inputApiBaseUrl.text.toString(),
+            accessTokenRaw = token,
+            expiresAtRaw = expiresAt,
+            usuarioIdRaw = usuarioId,
+            usernameRaw = username
+        )
+
+        statusText.text = result.message
+        if (result.success) {
+            prefs.edit { remove(KEY_WIDGET_WEB_AUTH_STATE) }
+            if (username.isNotBlank()) {
+                inputUsername.setText(username)
             }
-        }.start()
+            inputPassword.setText("")
+            triggerWidgetRefresh()
+        }
     }
 
     private fun triggerWidgetRefresh() {
@@ -141,5 +200,13 @@ class ConfigActivity : AppCompatActivity() {
             view.updatePadding(top = bars.top, bottom = bars.bottom)
             insets
         }
+    }
+
+    companion object {
+        private const val PREFS_NAME = "soldado_widget_prefs"
+        private const val KEY_WIDGET_WEB_AUTH_STATE = "widget_web_auth_state"
+        private const val WIDGET_WEB_AUTH_SCHEME = "soldadowidget"
+        private const val WIDGET_WEB_AUTH_HOST = "auth"
+        private const val WIDGET_WEB_AUTH_REDIRECT_URI = "soldadowidget://auth/callback"
     }
 }

@@ -23,8 +23,18 @@
 
         <activity
             android:name=".ConfigActivity"
-            android:exported="false"
-            android:label="Configuración de Red" />
+            android:exported="true"
+            android:label="Configuración de Red">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="soldadowidget"
+                    android:host="auth"
+                    android:pathPrefix="/callback" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".RemindersListActivity"

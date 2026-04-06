@@ -20,7 +20,7 @@
     <string name="btn_reset_label">Despertar</string>
     <string name="btn_order_label">Jugar</string>
     <string name="btn_save_extension_label">Guardar configuracion</string>
-    <string name="btn_login_extension_label">Iniciar sesion</string>
+    <string name="btn_login_extension_label">Iniciar sesion web</string>
     <string name="btn_sync_extension_label">Sincronizar recordatorios</string>
     <string name="hint_extension_base_url">URL base Deposito_ART1 (https://...)</string>
     <string name="hint_extension_username">Usuario de Deposito_ART1</string>
@@ -29,6 +29,8 @@
     <string name="extension_status_ready">Extension configurada. Puedes iniciar sesion.</string>
     <string name="extension_status_ready_to_login">Configuracion guardada. Ahora inicia sesion.</string>
     <string name="extension_status_authenticating">Iniciando sesion...</string>
+    <string name="extension_status_opening_web_auth">Abriendo navegador para iniciar sesion web...</string>
+    <string name="extension_status_web_auth_state_error">No se pudo validar el login web (estado invalido).</string>
     <string name="extension_status_syncing">Sincronizando recordatorios...</string>
     <string name="extension_status_sync_ok">Sincronizacion OK: %1$d pendientes, %2$d urgentes.</string>
     <string name="extension_status_sync_fail">No se pudo sincronizar. Revisa conectividad o vuelve a iniciar sesion.</string>

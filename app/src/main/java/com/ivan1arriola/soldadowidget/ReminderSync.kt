@@ -4,8 +4,11 @@ import android.content.Context
 import android.os.Build
 import androidx.core.content.edit
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.Locale
+import java.util.TimeZone
 import kotlin.random.Random
 
 object ReminderSync {
@@ -81,6 +84,40 @@ object ReminderSync {
         return System.currentTimeMillis() >= expiresAt
     }
 
+    fun saveWebAuthLogin(
+        context: Context,
+        baseUrlRaw: String,
+        accessTokenRaw: String,
+        expiresAtRaw: String,
+        usuarioIdRaw: String,
+        usernameRaw: String
+    ): LoginResult {
+        val baseUrl = baseUrlRaw.trim()
+        val accessToken = accessTokenRaw.trim()
+        val usuarioId = usuarioIdRaw.trim()
+        val username = usernameRaw.trim()
+        val expiresAtMs = parseIsoInstantToMillis(expiresAtRaw.trim())
+
+        if (baseUrl.isBlank()) {
+            return LoginResult(success = false, message = "Configura primero la URL de Deposito_ART1.")
+        }
+
+        if (accessToken.isBlank() || usuarioId.isBlank() || expiresAtMs <= 0L) {
+            return LoginResult(success = false, message = "Respuesta de login web incompleta o invalida.")
+        }
+
+        val config = ExtensionConfig(
+            baseUrl = baseUrl,
+            username = username,
+            usuarioId = usuarioId,
+            token = accessToken,
+            tokenExpiresAtMs = expiresAtMs
+        )
+
+        saveConfig(context, config)
+        return LoginResult(success = true, message = "Sesion web iniciada para ${username.ifBlank { "usuario" }}.", config = config)
+    }
+
     fun login(context: Context, baseUrlRaw: String, usernameRaw: String, passwordRaw: String): LoginResult {
         val baseUrl = baseUrlRaw.trim()
         val username = usernameRaw.trim()
@@ -141,21 +178,7 @@ object ReminderSync {
                 )
             }
 
-            val expiresAtMs = try {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    java.time.Instant.parse(expiresAtRaw).toEpochMilli()
-                } else {
-                    // Fallback for older APIs if needed, or use a library like ThreeTenABP
-                    0L 
-                }
-            } catch (_: Throwable) {
-                0L
-            }
-
-            if (expiresAtMs <= 0L && expiresAtRaw.isNotEmpty()) {
-                 // Simple attempt to parse if Instant fails or API < 26
-                 // For now, let's assume API 26+ or provide a basic alternative
-            }
+            val expiresAtMs = parseIsoInstantToMillis(expiresAtRaw)
 
             val config = ExtensionConfig(
                 baseUrl = baseUrl,
@@ -260,7 +283,7 @@ object ReminderSync {
                         tareaId = tareaJson.optString("tareaId", ""),
                         titulo = tareaJson.optString("titulo", ""),
                         nota = tareaJson.optString("nota", ""),
-                        fechaLimite = tareaJson.optString("fechaLimite", null),
+                        fechaLimite = tareaJson.optString("fechaLimite", "").ifBlank { null },
                         prioridad = tareaJson.optString("prioridad", "NORMAL"),
                         completada = tareaJson.optBoolean("completada", false),
                         updatedAt = tareaJson.optString("updatedAt", "")
@@ -352,7 +375,7 @@ object ReminderSync {
                 tareaId = json.optString("tareaId", ""),
                 titulo = json.optString("titulo", ""),
                 nota = json.optString("nota", ""),
-                fechaLimite = json.optString("fechaLimite", null),
+                fechaLimite = json.optString("fechaLimite", "").ifBlank { null },
                 prioridad = json.optString("prioridad", "NORMAL"),
                 completada = json.optBoolean("completada", false),
                 updatedAt = json.optString("updatedAt", "")
@@ -410,7 +433,7 @@ object ReminderSync {
                 tareaId = json.optString("tareaId", ""),
                 titulo = json.optString("titulo", ""),
                 nota = json.optString("nota", ""),
-                fechaLimite = json.optString("fechaLimite", null),
+                fechaLimite = json.optString("fechaLimite", "").ifBlank { null },
                 prioridad = json.optString("prioridad", "NORMAL"),
                 completada = json.optBoolean("completada", false),
                 updatedAt = json.optString("updatedAt", "")
@@ -559,6 +582,29 @@ object ReminderSync {
             JSONObject(value)
         } catch (_: Throwable) {
             null
+        }
+    }
+
+    private fun parseIsoInstantToMillis(value: String): Long {
+        if (value.isBlank()) return 0L
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            try {
+                return java.time.Instant.parse(value).toEpochMilli()
+            } catch (_: Throwable) {
+                // fallback below
+            }
+        }
+
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+            isLenient = true
+        }
+
+        return try {
+            parser.parse(value)?.time ?: 0L
+        } catch (_: Throwable) {
+            0L
         }
     }
 
