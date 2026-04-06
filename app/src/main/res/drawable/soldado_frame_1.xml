@@ -15,6 +15,19 @@
         </shape>
     </item>
 
+    <!-- Detalle: Cinturón Militar -->
+    <item android:top="48dp" android:left="18dp" android:right="18dp" android:bottom="24dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#3E2723" />
+        </shape>
+    </item>
+    <item android:top="47dp" android:left="32dp" android:right="32dp" android:bottom="23dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFD700" />
+            <corners android:radius="1dp" />
+        </shape>
+    </item>
+
     <!-- Cabeza -->
     <item android:top="4dp" android:left="16dp" android:right="16dp" android:bottom="34dp">
         <shape android:shape="oval"><solid android:color="#FFDBAC" /></shape>
@@ -28,27 +41,27 @@
         <shape android:shape="rectangle"><solid android:color="#556B2F" /><corners android:bottomLeftRadius="4dp" android:bottomRightRadius="4dp"/></shape>
     </item>
 
-    <!-- Ojos (Grandes, con Pupilas y Brillos) -->
-    <item android:top="18dp" android:left="27dp" android:right="37dp" android:bottom="44dp">
+    <!-- Ojos (Normalizados para evitar deformación) -->
+    <item android:top="20dp" android:left="27dp" android:right="37dp" android:bottom="38dp">
         <shape android:shape="oval"><solid android:color="#212121" /></shape>
     </item>
-    <item android:top="18dp" android:left="37dp" android:right="27dp" android:bottom="44dp">
+    <item android:top="20dp" android:left="37dp" android:right="27dp" android:bottom="38dp">
         <shape android:shape="oval"><solid android:color="#212121" /></shape>
     </item>
 
     <!-- Pupilas -->
-    <item android:top="19dp" android:left="29dp" android:right="39dp" android:bottom="46dp">
+    <item android:top="22dp" android:left="29dp" android:right="39dp" android:bottom="40dp">
         <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
     </item>
-    <item android:top="19dp" android:left="39dp" android:right="29dp" android:bottom="46dp">
+    <item android:top="22dp" android:left="39dp" android:right="29dp" android:bottom="40dp">
         <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
     </item>
 
     <!-- Brillos -->
-    <item android:top="19dp" android:left="29dp" android:right="41dp" android:bottom="48dp">
+    <item android:top="21dp" android:left="29dp" android:right="41dp" android:bottom="42dp">
         <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
     </item>
-    <item android:top="19dp" android:left="39dp" android:right="31dp" android:bottom="48dp">
+    <item android:top="21dp" android:left="39dp" android:right="31dp" android:bottom="42dp">
         <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
     </item>
 

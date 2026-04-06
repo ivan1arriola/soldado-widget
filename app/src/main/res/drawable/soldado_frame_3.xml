@@ -15,6 +15,14 @@
         </shape>
     </item>
 
+    <!-- Cinturón -->
+    <item android:top="55dp" android:left="18dp" android:right="18dp" android:bottom="17dp">
+        <shape android:shape="rectangle"><solid android:color="#3E2723" /></shape>
+    </item>
+    <item android:top="54dp" android:left="34dp" android:right="34dp" android:bottom="16dp">
+        <shape android:shape="rectangle"><solid android:color="#FFD700" /><corners android:radius="1dp" /></shape>
+    </item>
+
     <!-- Cabeza (Un poco inclinada) -->
     <item android:top="11dp" android:left="16dp" android:right="16dp" android:bottom="27dp">
         <shape android:shape="oval"><solid android:color="#FFDBAC" /></shape>
@@ -25,20 +33,12 @@
         <shape android:shape="oval"><solid android:color="#556B2F" /></shape>
     </item>
 
-    <!-- Ojos (Cerrados pero con detalle de pestañas/pupila oculta) -->
-    <item android:top="28dp" android:left="26dp" android:right="36dp" android:bottom="35dp">
+    <!-- Ojos (Cerrados - rectángulos finos de 16x4dp) -->
+    <item android:top="28dp" android:left="27dp" android:right="37dp" android:bottom="32dp">
         <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="2dp"/></shape>
     </item>
-    <item android:top="28dp" android:left="36dp" android:right="26dp" android:bottom="35dp">
+    <item android:top="28dp" android:left="37dp" android:right="27dp" android:bottom="32dp">
         <shape android:shape="rectangle"><solid android:color="#212121" /><corners android:radius="2dp"/></shape>
-    </item>
-
-    <!-- Brillo tenue de sueño -->
-    <item android:top="29dp" android:left="28dp" android:right="38dp" android:bottom="33dp">
-        <shape android:shape="oval"><solid android:color="#40FFFFFF" /></shape>
-    </item>
-    <item android:top="29dp" android:left="38dp" android:right="28dp" android:bottom="33dp">
-        <shape android:shape="oval"><solid android:color="#40FFFFFF" /></shape>
     </item>
 
     <!-- Burbuja de sueño Zzz (Minimalista) -->

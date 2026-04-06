@@ -6,6 +6,8 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import android.widget.RemoteViews
 import kotlin.random.Random
 import java.util.concurrent.Executors
@@ -18,12 +20,24 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         appWidgetIds.forEach { appWidgetId ->
+            val options = appWidgetManager.getAppWidgetOptions(appWidgetId)
             val frame = loadFrame(context, appWidgetId)
             val phrase = ReminderSync.phrase(context, appWidgetId)
-            val reminderLine = ReminderSync.reminderLine(context, appWidgetId)
-            updateWidget(context, appWidgetManager, appWidgetId, frame, phrase, reminderLine)
+            updateWidget(context, appWidgetManager, appWidgetId, frame, phrase, options)
             requestSync(context, appWidgetId, force = false)
         }
+    }
+
+    override fun onAppWidgetOptionsChanged(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int,
+        newOptions: Bundle
+    ) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
+        val frame = loadFrame(context, appWidgetId)
+        val phrase = ReminderSync.phrase(context, appWidgetId)
+        updateWidget(context, appWidgetManager, appWidgetId, frame, phrase, newOptions)
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -38,7 +52,6 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
             if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
                 handleTap(context, appWidgetId)
             } else {
-                // Some launchers omit the widget id, so we update all widget instances.
                 val manager = AppWidgetManager.getInstance(context)
                 val ids = manager.getAppWidgetIds(
                     ComponentName(context, SoldadoWidgetProvider::class.java)
@@ -52,21 +65,19 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         FeedbackEffects.playTap(context)
         
-        // Resetear taps si ha pasado mucho tiempo (simulando "volver a verlo")
         val lastTapTime = prefs.getLong("last_tap_$appWidgetId", 0L)
         val currentTime = System.currentTimeMillis()
         var taps = prefs.getInt("taps_$appWidgetId", 0)
         
-        if (currentTime - lastTapTime > 30000) { // 30 segundos de inactividad resetean el humor
+        if (currentTime - lastTapTime > 30000) {
             taps = 0
         }
         taps++
         
-        // Siguiente frame de animación con más variedad
         val nextFrame = when {
-            taps > 15 -> 3 // Dormido/Agotado
-            taps > 8 -> (1..2).random() // Movimientos erráticos/Cansado
-            else -> (0..2).random() // Movimientos normales
+            taps > 15 -> 3 // Agotado
+            taps > 8 -> listOf(1, 2, 3).random() // Inquieto sin deformar
+            else -> listOf(0, 1, 2).random() // Normal estable
         }
         
         prefs.edit()
@@ -75,7 +86,6 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
             .putLong("last_tap_$appWidgetId", currentTime)
             .apply()
 
-        // Seleccionar frase con más personalidad
         val phrase = when {
             taps == 1 -> context.getString(R.string.soldado_phrase_surprise)
             taps > 15 -> context.getString(R.string.soldado_phrase_sleep)
@@ -85,8 +95,8 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         }
 
         val manager = AppWidgetManager.getInstance(context)
-        val reminderLine = ReminderSync.reminderLine(context, appWidgetId)
-        updateWidget(context, manager, appWidgetId, nextFrame, phrase, reminderLine)
+        val options = manager.getAppWidgetOptions(appWidgetId)
+        updateWidget(context, manager, appWidgetId, nextFrame, phrase, options)
         requestSync(context, appWidgetId, force = false)
     }
 
@@ -109,16 +119,35 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         appWidgetId: Int,
         frame: Int,
         phrase: String,
-        reminderLine: String
+        options: Bundle
     ) {
-        val views = RemoteViews(context.packageName, R.layout.widget_soldado)
+        val minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT)
+        val layoutRes = if (minHeight >= 140) R.layout.widget_soldado_tall else R.layout.widget_soldado
+        val views = RemoteViews(context.packageName, layoutRes)
+
         views.setImageViewResource(R.id.soldierImage, SOLDIER_FRAMES[frame])
         views.setTextViewText(R.id.soldierPhrase, phrase)
-        views.setTextViewText(R.id.soldierReminder, reminderLine)
+
+        val titles = ReminderSync.getTopTitles(context, appWidgetId)
+        val isLarge = minHeight >= 140
+
+        if (titles.isEmpty()) {
+            views.setTextViewText(R.id.soldierReminder, ReminderSync.reminderLine(context, appWidgetId))
+            views.setViewVisibility(R.id.soldierReminder2, View.GONE)
+        } else {
+            views.setTextViewText(R.id.soldierReminder, titles[0])
+            if (isLarge && titles.size > 1) {
+                views.setTextViewText(R.id.soldierReminder2, titles[1])
+                views.setViewVisibility(R.id.soldierReminder2, View.VISIBLE)
+            } else {
+                views.setViewVisibility(R.id.soldierReminder2, View.GONE)
+            }
+        }
+
         views.setOnClickPendingIntent(R.id.widgetRoot, clickIntent(context, appWidgetId))
         views.setOnClickPendingIntent(R.id.soldierImage, clickIntent(context, appWidgetId))
         views.setOnClickPendingIntent(R.id.soldierPhrase, openAppIntent(context, appWidgetId))
-        views.setOnClickPendingIntent(R.id.soldierReminder, openAppIntent(context, appWidgetId))
+        views.setOnClickPendingIntent(R.id.tasksContainer, openAppIntent(context, appWidgetId))
 
         manager.updateAppWidget(appWidgetId, views)
     }
@@ -135,12 +164,11 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
             ReminderSync.saveSnapshotForWidget(context, appWidgetId, snapshot)
 
             val frame = loadFrame(context, appWidgetId)
-            // Generar frase conversacional basada en tareas reales
             val phrase = ReminderSync.phraseWithTasks(context)
-            val reminderLine = ReminderSync.reminderLine(context, appWidgetId)
-
+            
             val manager = AppWidgetManager.getInstance(context)
-            updateWidget(context, manager, appWidgetId, frame, phrase, reminderLine)
+            val options = manager.getAppWidgetOptions(appWidgetId)
+            updateWidget(context, manager, appWidgetId, frame, phrase, options)
         }
     }
 

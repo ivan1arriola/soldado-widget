@@ -4,62 +4,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_bg"
-    android:gravity="center"
+    android:gravity="top|center_horizontal"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/soldierImage"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/soldado_desc"
-        android:scaleType="centerInside"
-        android:src="@drawable/soldado_frame_0" />
+    <FrameLayout
+        android:id="@+id/soldierBox"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:layout_gravity="center_horizontal"
+        android:foregroundGravity="center">
+
+        <ImageView
+            android:id="@+id/soldierImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/soldado_desc"
+            android:scaleType="fitCenter"
+            android:src="@drawable/soldado_frame_0" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/soldierPhrase"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:gravity="center"
+        android:maxLines="3"
         android:text="@string/soldado_phrase_idle"
-        android:textAlignment="center"
         android:textColor="#F4FFF2"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/tasksContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/soldierReminder"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
             android:text="@string/reminder_line_unconfigured"
-            android:textAlignment="center"
             android:textColor="#CCE8C6"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/soldierReminder2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="3dp"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
             android:text=""
-            android:textAlignment="center"
             android:textColor="#CCE8C6"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:visibility="gone" />
     </LinearLayout>
 

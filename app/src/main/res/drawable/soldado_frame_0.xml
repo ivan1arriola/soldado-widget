@@ -5,7 +5,7 @@
         <shape android:shape="oval"><solid android:color="#20000000" /></shape>
     </item>
 
-    <!-- Cuerpo (Forma de píldora) -->
+    <!-- Cuerpo -->
     <item android:top="30dp" android:left="18dp" android:right="18dp" android:bottom="8dp">
         <shape android:shape="rectangle">
             <solid android:color="#78866B" />
@@ -13,20 +13,25 @@
         </shape>
     </item>
 
-    <!-- Cabeza (Redonda y grande) -->
+    <!-- Cinturón -->
+    <item android:top="50dp" android:left="18dp" android:right="18dp" android:bottom="22dp">
+        <shape android:shape="rectangle"><solid android:color="#3E2723" /></shape>
+    </item>
+    <item android:top="49dp" android:left="34dp" android:right="34dp" android:bottom="21dp">
+        <shape android:shape="rectangle"><solid android:color="#FFD700" /><corners android:radius="1dp" /></shape>
+    </item>
+
+    <!-- Cabeza -->
     <item android:top="6dp" android:left="16dp" android:right="16dp" android:bottom="32dp">
         <shape android:shape="oval"><solid android:color="#FFDBAC" /></shape>
     </item>
 
-    <!-- Casco (Minimalista) -->
+    <!-- Casco -->
     <item android:top="2dp" android:left="15dp" android:right="15dp" android:bottom="48dp">
         <shape android:shape="oval"><solid android:color="#556B2F" /></shape>
     </item>
-    <item android:top="14dp" android:left="15dp" android:right="15dp" android:bottom="52dp">
-        <shape android:shape="rectangle"><solid android:color="#556B2F" /><corners android:bottomLeftRadius="4dp" android:bottomRightRadius="4dp"/></shape>
-    </item>
 
-    <!-- Ojos (Grandes, con Pupilas y Brillos) -->
+    <!-- Ojos (16x18dp) -->
     <item android:top="22dp" android:left="27dp" android:right="37dp" android:bottom="40dp">
         <shape android:shape="oval"><solid android:color="#212121" /></shape>
     </item>
@@ -34,7 +39,7 @@
         <shape android:shape="oval"><solid android:color="#212121" /></shape>
     </item>
 
-    <!-- Pupilas (Marrón oscuro para profundidad) -->
+    <!-- Pupilas (12x14dp) -->
     <item android:top="24dp" android:left="29dp" android:right="39dp" android:bottom="42dp">
         <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
     </item>
@@ -42,28 +47,15 @@
         <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
     </item>
 
-    <!-- Brillos principales -->
-    <item android:top="23dp" android:left="29dp" android:right="41dp" android:bottom="44dp">
+    <!-- Brillos -->
+    <item android:top="23dp" android:left="29dp" android:right="41dp" android:bottom="45dp">
         <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
     </item>
-    <item android:top="23dp" android:left="39dp" android:right="31dp" android:bottom="44dp">
+    <item android:top="23dp" android:left="39dp" android:right="31dp" android:bottom="45dp">
         <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
     </item>
 
-    <!-- Brillos secundarios pequeños -->
-    <item android:top="27dp" android:left="33dp" android:right="40dp" android:bottom="41dp">
-        <shape android:shape="oval"><solid android:color="#A0FFFFFF" /></shape>
-    </item>
-    <item android:top="27dp" android:left="40dp" android:right="33dp" android:bottom="41dp">
-        <shape android:shape="oval"><solid android:color="#A0FFFFFF" /></shape>
-    </item>
-
-    <!-- Sonrisa pequeña -->
-    <item android:top="32dp" android:left="34dp" android:right="34dp" android:bottom="36dp">
-        <shape android:shape="oval"><solid android:color="#8D6E63" /></shape>
-    </item>
-
-    <!-- Brazos pequeños a los lados -->
+    <!-- Brazos -->
     <item android:top="38dp" android:left="10dp" android:right="54dp" android:bottom="18dp">
         <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
     </item>

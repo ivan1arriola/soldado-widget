@@ -26,7 +26,7 @@ object ReminderSync {
     data class ReminderSnapshot(
         val pendingCount: Int,
         val urgentCount: Int,
-        val topTitle: String?
+        val topTitles: List<String>
     )
 
     data class TaskListResponse(
@@ -227,16 +227,19 @@ object ReminderSync {
             val summary = json.optJSONObject("summary") ?: return null
             val tasks = json.optJSONArray("tasks")
 
-            val topTitle = if (tasks != null && tasks.length() > 0) {
-                tasks.optJSONObject(0)?.optString("titulo")?.trim().orEmpty().ifEmpty { null }
-            } else {
-                null
+            val topTitles = mutableListOf<String>()
+            if (tasks != null) {
+                for (i in 0 until tasks.length()) {
+                    val title = tasks.optJSONObject(i)?.optString("titulo")?.trim().orEmpty()
+                    if (title.isNotEmpty()) topTitles.add(title)
+                    if (topTitles.size >= 2) break
+                }
             }
 
             ReminderSnapshot(
                 pendingCount = summary.optInt("pendingCount", 0),
                 urgentCount = summary.optInt("urgentCount", 0),
-                topTitle = topTitle
+                topTitles = topTitles
             )
         } catch (_: Throwable) {
             null
@@ -453,13 +456,21 @@ object ReminderSync {
             if (snapshot == null) {
                 remove("$KEY_PENDING_PREFIX$appWidgetId")
                 remove("$KEY_URGENT_PREFIX$appWidgetId")
-                remove("$KEY_TOP_TITLE_PREFIX$appWidgetId")
+                remove("${KEY_TOP_TITLE_PREFIX}0_$appWidgetId")
+                remove("${KEY_TOP_TITLE_PREFIX}1_$appWidgetId")
                 return@edit
             }
 
             putInt("$KEY_PENDING_PREFIX$appWidgetId", snapshot.pendingCount)
             putInt("$KEY_URGENT_PREFIX$appWidgetId", snapshot.urgentCount)
-            putString("$KEY_TOP_TITLE_PREFIX$appWidgetId", snapshot.topTitle)
+            
+            snapshot.topTitles.forEachIndexed { index, title ->
+                putString("${KEY_TOP_TITLE_PREFIX}${index}_$appWidgetId", title)
+            }
+            // Limpiar si hay menos de 2
+            if (snapshot.topTitles.size < 2) {
+                remove("${KEY_TOP_TITLE_PREFIX}1_$appWidgetId")
+            }
         }
     }
 
@@ -468,7 +479,8 @@ object ReminderSync {
         prefs.edit {
             remove("$KEY_PENDING_PREFIX$appWidgetId")
             remove("$KEY_URGENT_PREFIX$appWidgetId")
-            remove("$KEY_TOP_TITLE_PREFIX$appWidgetId")
+            remove("${KEY_TOP_TITLE_PREFIX}0_$appWidgetId")
+            remove("${KEY_TOP_TITLE_PREFIX}1_$appWidgetId")
             remove("$KEY_LAST_SYNC_PREFIX$appWidgetId")
         }
     }
@@ -498,7 +510,7 @@ object ReminderSync {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val pending = prefs.getInt("$KEY_PENDING_PREFIX$appWidgetId", 0)
         val urgent = prefs.getInt("$KEY_URGENT_PREFIX$appWidgetId", 0)
-        val topTitle = prefs.getString("$KEY_TOP_TITLE_PREFIX$appWidgetId", "")?.trim().orEmpty()
+        val topTitle = prefs.getString("${KEY_TOP_TITLE_PREFIX}0_$appWidgetId", "")?.trim().orEmpty()
 
         return when {
             pending <= 0 -> context.getString(R.string.reminder_phrase_clear)
@@ -506,6 +518,14 @@ object ReminderSync {
             topTitle.isNotEmpty() -> context.getString(R.string.reminder_phrase_next, truncate(topTitle, 34))
             else -> context.getString(R.string.reminder_phrase_pending, pending)
         }
+    }
+
+    fun getTopTitles(context: Context, appWidgetId: Int): List<String> {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val titles = mutableListOf<String>()
+        prefs.getString("${KEY_TOP_TITLE_PREFIX}0_$appWidgetId", null)?.let { titles.add(it) }
+        prefs.getString("${KEY_TOP_TITLE_PREFIX}1_$appWidgetId", null)?.let { titles.add(it) }
+        return titles
     }
 
     fun phraseWithTasks(context: Context): String {
