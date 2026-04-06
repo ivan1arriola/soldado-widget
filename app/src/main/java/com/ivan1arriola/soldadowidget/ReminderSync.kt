@@ -297,6 +297,120 @@ object ReminderSync {
         }
     }
 
+    fun createTask(
+        context: Context,
+        titulo: String,
+        nota: String = "",
+        fechaLimite: String? = null,
+        prioridad: String = "NORMAL"
+    ): ReminderTask? {
+        val config = readConfig(context)
+        if (!config.isConfigured) return null
+
+        val endpoint = config.baseUrl.trimEnd('/') + "/api/extensions/soldado-widget/tareas/create"
+
+        val connection = (URL(endpoint).openConnection() as HttpURLConnection).apply {
+            requestMethod = "POST"
+            connectTimeout = 7000
+            readTimeout = 7000
+            doOutput = true
+            setRequestProperty("Accept", "application/json")
+            setRequestProperty("Content-Type", "application/json")
+            setRequestProperty("Authorization", "Bearer ${config.token}")
+        }
+
+        return try {
+            val body = JSONObject().apply {
+                put("titulo", titulo)
+                put("nota", nota.ifEmpty { JSONObject.NULL })
+                if (fechaLimite != null) put("fechaLimite", fechaLimite)
+                put("prioridad", prioridad)
+            }
+
+            connection.outputStream.bufferedWriter(Charsets.UTF_8).use {
+                it.write(body.toString())
+            }
+
+            val status = connection.responseCode
+            if (status !in 200..299) return null
+
+            val responseText = readResponseBody(connection, status)
+            val json = JSONObject(responseText)
+
+            ReminderTask(
+                tareaId = json.optString("tareaId", ""),
+                titulo = json.optString("titulo", ""),
+                nota = json.optString("nota", ""),
+                fechaLimite = json.optString("fechaLimite", null),
+                prioridad = json.optString("prioridad", "NORMAL"),
+                completada = json.optBoolean("completada", false),
+                updatedAt = json.optString("updatedAt", "")
+            )
+        } catch (_: Throwable) {
+            null
+        } finally {
+            connection.disconnect()
+        }
+    }
+
+    fun updateTask(
+        context: Context,
+        tareaId: String,
+        titulo: String? = null,
+        nota: String? = null,
+        fechaLimite: String? = null,
+        prioridad: String? = null,
+        completada: Boolean? = null
+    ): ReminderTask? {
+        val config = readConfig(context)
+        if (!config.isConfigured) return null
+
+        val endpoint = config.baseUrl.trimEnd('/') + "/api/extensions/soldado-widget/tareas/$tareaId"
+
+        val connection = (URL(endpoint).openConnection() as HttpURLConnection).apply {
+            requestMethod = "PUT"
+            connectTimeout = 7000
+            readTimeout = 7000
+            doOutput = true
+            setRequestProperty("Accept", "application/json")
+            setRequestProperty("Content-Type", "application/json")
+            setRequestProperty("Authorization", "Bearer ${config.token}")
+        }
+
+        return try {
+            val body = JSONObject()
+            if (titulo != null) body.put("titulo", titulo)
+            if (nota != null) body.put("nota", nota.ifEmpty { JSONObject.NULL })
+            if (fechaLimite != null) body.put("fechaLimite", fechaLimite)
+            if (prioridad != null) body.put("prioridad", prioridad)
+            if (completada != null) body.put("completada", completada)
+
+            connection.outputStream.bufferedWriter(Charsets.UTF_8).use {
+                it.write(body.toString())
+            }
+
+            val status = connection.responseCode
+            if (status !in 200..299) return null
+
+            val responseText = readResponseBody(connection, status)
+            val json = JSONObject(responseText)
+
+            ReminderTask(
+                tareaId = json.optString("tareaId", ""),
+                titulo = json.optString("titulo", ""),
+                nota = json.optString("nota", ""),
+                fechaLimite = json.optString("fechaLimite", null),
+                prioridad = json.optString("prioridad", "NORMAL"),
+                completada = json.optBoolean("completada", false),
+                updatedAt = json.optString("updatedAt", "")
+            )
+        } catch (_: Throwable) {
+            null
+        } finally {
+            connection.disconnect()
+        }
+    }
+
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit {
             putLong("$KEY_LAST_SYNC_PREFIX$appWidgetId", System.currentTimeMillis())
@@ -358,6 +472,72 @@ object ReminderSync {
             else -> context.getString(R.string.reminder_phrase_pending, pending)
         }
     }
+
+    fun phraseWithTasks(context: Context): String {
+        if (!isConfigured(context)) return context.getString(R.string.soldado_phrase_idle)
+
+        val response = fetchTasks(context) ?: return phrase(context, 0)
+        
+        val pendingTasks = response.tareas.filter { !it.completada }
+        if (pendingTasks.isEmpty()) {
+            return listOf(
+                R.string.task_phrase_done_0,
+                R.string.reminder_phrase_clear
+            ).random { getRandom(context) }.let { context.getString(it) }
+        }
+
+        // Seleccionar por prioridad y cantidad
+        val firstTask = pendingTasks.first()
+        val urgentTasks = pendingTasks.filter { it.prioridad == "URGENTE" }
+        val totalPending = pendingTasks.size
+
+        return when {
+            // Tarea urgente única
+            urgentTasks.size == 1 && totalPending == 1 -> {
+                listOf(
+                    R.string.task_phrase_urgent_0,
+                    R.string.task_phrase_urgent_1,
+                    R.string.task_phrase_urgent_2
+                ).random { getRandom(context) }.let { 
+                    context.getString(it, truncate(firstTask.titulo, 30))
+                }
+            }
+            // Múltiples tareas urgentes
+            urgentTasks.isNotEmpty() -> {
+                context.getString(
+                    R.string.task_phrase_urgent_3,
+                    truncate(firstTask.titulo, 30)
+                )
+            }
+            // Múltiples tareas normales
+            totalPending > 1 -> {
+                listOf(
+                    R.string.task_phrase_multiple_0,
+                    R.string.task_phrase_multiple_1,
+                    R.string.task_phrase_multiple_2
+                ).random { getRandom(context) }.let {
+                    context.getString(it, totalPending, truncate(firstTask.titulo, 25))
+                }
+            }
+            // Una tarea normal
+            else -> {
+                listOf(
+                    R.string.task_phrase_directive_0,
+                    R.string.task_phrase_directive_1,
+                    R.string.task_phrase_reminder_0,
+                    R.string.task_phrase_reminder_1
+                ).random { getRandom(context) }.let {
+                    context.getString(it, truncate(firstTask.titulo, 35))
+                }
+            }
+        }
+    }
+
+    private fun <T> List<T>.random(getRandom: (Context) -> kotlin.random.Random): T {
+        return this[getRandom(null).nextInt(size)]
+    }
+
+    private fun getRandom(context: Context?): kotlin.random.Random = kotlin.random.Random
 
     private fun truncate(value: String, maxLength: Int): String {
         if (value.length <= maxLength) return value

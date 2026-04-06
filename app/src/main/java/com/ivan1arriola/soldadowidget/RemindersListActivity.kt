@@ -1,5 +1,6 @@
 package com.ivan1arriola.soldadowidget
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -27,6 +28,7 @@ class RemindersListActivity : AppCompatActivity() {
         val tasksContainer = findViewById<LinearLayout>(R.id.remindersListContainer)
         val btnRefresh = findViewById<Button>(R.id.btnRefreshReminders)
         val btnBack = findViewById<Button>(R.id.btnBackReminders)
+        val btnCreateTarea = findViewById<Button>(R.id.btnCreateTarea)
 
         btnBack.setOnClickListener {
             finish()
@@ -34,6 +36,10 @@ class RemindersListActivity : AppCompatActivity() {
 
         btnRefresh.setOnClickListener {
             loadTasks(progressBar, statusText, tasksContainer)
+        }
+
+        btnCreateTarea.setOnClickListener {
+            startActivity(Intent(this, CreateEditTareaActivity::class.java))
         }
 
         loadTasks(progressBar, statusText, tasksContainer)
@@ -121,6 +127,19 @@ class RemindersListActivity : AppCompatActivity() {
                         }
                     }
                 }.start()
+            }
+
+            // Long click para editar tarea
+            taskView.setOnLongClickListener {
+                val intent = Intent(this, CreateEditTareaActivity::class.java).apply {
+                    putExtra("tarea_id", tarea.tareaId)
+                    putExtra("tarea_titulo", tarea.titulo)
+                    putExtra("tarea_nota", tarea.nota)
+                    putExtra("tarea_fechaLimite", tarea.fechaLimite)
+                    putExtra("tarea_prioridad", tarea.prioridad)
+                }
+                startActivity(intent)
+                true
             }
 
             container.addView(taskView)

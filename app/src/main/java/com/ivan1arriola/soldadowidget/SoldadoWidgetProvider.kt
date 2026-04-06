@@ -135,7 +135,8 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
             ReminderSync.saveSnapshotForWidget(context, appWidgetId, snapshot)
 
             val frame = loadFrame(context, appWidgetId)
-            val phrase = ReminderSync.phrase(context, appWidgetId)
+            // Generar frase conversacional basada en tareas reales
+            val phrase = ReminderSync.phraseWithTasks(context)
             val reminderLine = ReminderSync.reminderLine(context, appWidgetId)
 
             val manager = AppWidgetManager.getInstance(context)

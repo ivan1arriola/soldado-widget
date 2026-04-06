@@ -54,4 +54,32 @@
     <string name="soldado_phrase_order_march">¡Marchando con ritmo!</string>
     <string name="soldado_phrase_order_scan">¡Buscando amigos en el perímetro!</string>
     <string name="soldado_phrase_order_salute">¡Saludo militar con una sonrisa!</string>
+
+    <string name="create_tarea_title">Crear Recordatorio</string>
+    <string name="edit_tarea_title">Editar Recordatorio</string>
+    <string name="create_tarea_success">Recordatorio creado</string>
+    <string name="edit_tarea_success">Recordatorio actualizado</string>
+    <string name="create_tarea_error">Error al crear recordatorio</string>
+    <string name="edit_tarea_error">Error al actualizar recordatorio</string>
+
+    <!-- Frases del soldado hablando sobre tareas específicas -->
+    <string name="task_phrase_directive_0">¡Tenemos misión! Debo cuidar: "%1$s"</string>
+    <string name="task_phrase_directive_1">Capitán, la orden es clara: "%1$s"</string>
+    <string name="task_phrase_directive_2">¡Mi próxima misión: %1$s!</string>
+    <string name="task_phrase_reminder_0">No olvides: "%1$s". ¡Yo estaré aquí!</string>
+    <string name="task_phrase_reminder_1">Recuerda que tenés pendiente: "%1$s"</string>
+    <string name="task_phrase_reminder_2">Capitán, no nos olvidemos de: "%1$s"</string>
+    <string name="task_phrase_urgent_0">¡ALERTA! Misión urgente: "%1$s"</string>
+    <string name="task_phrase_urgent_1">¡Con prioridad, Capitán! "%1$s"</string>
+    <string name="task_phrase_urgent_2">¡URGENTE! Debo vigilar: "%1$s"</string>
+    <string name="task_phrase_urgent_3">¡Esto no puede esperar! "%1$s"</string>
+    <string name="task_phrase_multiple_0">Tengo %1$d misiones. La principal: "%2$s"</string>
+    <string name="task_phrase_multiple_1">En total %1$d tareas pendientes. Empiezo con: "%2$s"</string>
+    <string name="task_phrase_multiple_2">Capitán, hay %1$d deberes. Primero: "%2$s"</string>
+    <string name="task_phrase_done_0">¡Misión completada! Uno menos. Vamos con lo próximo.</string>
+    <string name="task_phrase_done_1">¡Eso es! ¡Hubo progreso! Ahora falta: "%1$s"</string>
+    <string name="task_phrase_done_2">¡Excelente! Ya queda menos. Próximo objetivo: "%1$s"</string>
+    <string name="task_phrase_due_today">¡Ojo! Vence hoy: "%1$s"</string>
+    <string name="task_phrase_due_soon">Vence pronto: "%1$s". ¡Mejor nos apresuramos!</string>
+    <string name="task_phrase_overdue">ALERTA: Vencido: "%1$s" ¡Necesita atención AHORA!</string>
 </resources>

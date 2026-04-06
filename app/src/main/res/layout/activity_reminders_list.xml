@@ -53,12 +53,27 @@
                 android:spacing="8dp" />
         </ScrollView>
 
-        <Button
-            android:id="@+id/btnRefreshReminders"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Actualizar" />
+            android:orientation="horizontal"
+            android:spacing="8dp"
+            android:layout_marginTop="12dp">
+
+            <Button
+                android:id="@+id/btnRefreshReminders"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Actualizar" />
+
+            <Button
+                android:id="@+id/btnCreateTarea"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Crear" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnBackReminders"

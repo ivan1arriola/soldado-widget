@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#1B2412"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Crear Recordatorio"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Título *"
+        android:textColor="#B0BEC5"
+        android:textSize="12sp"
+        android:marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/etTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Nombre de la tarea"
+        android:inputType="text"
+        android:textColorHint="#757575"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/edit_text_dark"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:marginBottom="16dp"
+        android:maxLines="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notas (opcional)"
+        android:textColor="#B0BEC5"
+        android:textSize="12sp"
+        android:marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/etNota"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:hint="Agrega detalles..."
+        android:inputType="textMultiLine"
+        android:textColorHint="#757575"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/edit_text_dark"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:marginBottom="16dp"
+        android:gravity="top" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha Límite (opcional)"
+        android:textColor="#B0BEC5"
+        android:textSize="12sp"
+        android:marginBottom="4dp" />
+
+    <Button
+        android:id="@+id/btnFechaLimite"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Seleccionar fecha"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_dark"
+        android:textSize="14sp"
+        android:marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prioridad"
+        android:textColor="#B0BEC5"
+        android:textSize="12sp"
+        android:marginBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rgPrioridad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:marginBottom="24dp">
+
+        <RadioButton
+            android:id="@+id/rbNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="    Normal"
+            android:textColor="#FFFFFF"
+            android:buttonTint="#4CAF50"
+            android:checked="true"
+            android:layout_marginEnd="16dp" />
+
+        <RadioButton
+            android:id="@+id/rbUrgente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="    Urgente"
+            android:textColor="#FFFFFF"
+            android:buttonTint="#F44336" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:spacing="8dp">
+
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Cancelar"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_secondary"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Crear"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_primary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
