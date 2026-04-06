@@ -5,8 +5,24 @@ local.properties
 .gradle/
 .kotlin/
 build/
-app/build/
+**/build/
+.externalNativeBuild/
+.cxx/
+
+# Packaging outputs
+*.apk
+*.aab
+*.ap_
+*.aar
 
 # IDE files
 .idea/
 *.iml
+
+# Android Studio generated files
+captures/
+.navigation/
+
+# OS / misc
+.DS_Store
+Thumbs.db
