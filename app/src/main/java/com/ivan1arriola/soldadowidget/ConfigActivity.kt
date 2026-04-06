@@ -43,13 +43,22 @@ class ConfigActivity : AppCompatActivity() {
 
         // Cargar config actual
         val config = ReminderSync.readConfig(this)
-        inputApiBaseUrl.setText(config.baseUrl)
+        val normalizedConfig = config.copy(baseUrl = FIXED_BASE_URL)
+        if (normalizedConfig.baseUrl != config.baseUrl) {
+            ReminderSync.saveConfig(this, normalizedConfig)
+        }
+
+        inputApiBaseUrl.setText(FIXED_BASE_URL)
+        inputApiBaseUrl.isEnabled = false
+        inputApiBaseUrl.isFocusable = false
+        inputApiBaseUrl.isFocusableInTouchMode = false
+        inputApiBaseUrl.isClickable = false
         inputUsername.setText(config.username)
 
         btnSave.setOnClickListener {
             val currentConfig = ReminderSync.readConfig(this)
             val newConfig = ReminderSync.ExtensionConfig(
-                baseUrl = inputApiBaseUrl.text.toString(),
+                baseUrl = FIXED_BASE_URL,
                 username = inputUsername.text.toString(),
                 usuarioId = currentConfig.usuarioId,
                 token = currentConfig.token,
@@ -61,7 +70,7 @@ class ConfigActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
-            startWebLogin(baseUrl = inputApiBaseUrl.text.toString())
+            startWebLogin()
         }
 
         btnSync.setOnClickListener {
@@ -88,7 +97,7 @@ class ConfigActivity : AppCompatActivity() {
 
     private fun syncNow(statusView: TextView) {
         val config = ReminderSync.readConfig(this)
-        if (config.baseUrl.isBlank() || config.username.isBlank()) {
+        if (config.username.isBlank()) {
             statusView.text = getString(R.string.extension_status_unconfigured)
             return
         }
@@ -116,19 +125,13 @@ class ConfigActivity : AppCompatActivity() {
         }.start()
     }
 
-    private fun startWebLogin(baseUrl: String) {
-        val normalizedBaseUrl = baseUrl.trim()
-        if (normalizedBaseUrl.isBlank()) {
-            statusText.text = getString(R.string.extension_status_unconfigured)
-            return
-        }
-
+    private fun startWebLogin() {
         val state = UUID.randomUUID().toString()
         val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
         prefs.edit { putString(KEY_WIDGET_WEB_AUTH_STATE, state) }
 
         val endpoint =
-            normalizedBaseUrl.trimEnd('/') +
+            FIXED_BASE_URL.trimEnd('/') +
                 "/api/extensions/soldado-widget/oauth/authorize?redirect_uri=" +
                 Uri.encode(WIDGET_WEB_AUTH_REDIRECT_URI) +
                 "&state=" +
@@ -164,7 +167,7 @@ class ConfigActivity : AppCompatActivity() {
 
         val result = ReminderSync.saveWebAuthLogin(
             context = this,
-            baseUrlRaw = inputApiBaseUrl.text.toString(),
+            baseUrlRaw = FIXED_BASE_URL,
             accessTokenRaw = token,
             expiresAtRaw = expiresAt,
             usuarioIdRaw = usuarioId,
@@ -208,5 +211,6 @@ class ConfigActivity : AppCompatActivity() {
         private const val WIDGET_WEB_AUTH_SCHEME = "soldadowidget"
         private const val WIDGET_WEB_AUTH_HOST = "auth"
         private const val WIDGET_WEB_AUTH_REDIRECT_URI = "soldadowidget://auth/callback"
+        private const val FIXED_BASE_URL = "https://deposito-apt1.vercel.app/"
     }
 }

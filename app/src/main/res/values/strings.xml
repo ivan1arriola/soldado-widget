@@ -22,10 +22,10 @@
     <string name="btn_save_extension_label">Guardar configuracion</string>
     <string name="btn_login_extension_label">Iniciar sesion web</string>
     <string name="btn_sync_extension_label">Sincronizar recordatorios</string>
-    <string name="hint_extension_base_url">URL base Deposito_ART1 (https://...)</string>
+    <string name="hint_extension_base_url">Servidor fijo Deposito_ART1</string>
     <string name="hint_extension_username">Usuario de Deposito_ART1</string>
     <string name="hint_extension_password">Password de Deposito_ART1</string>
-    <string name="extension_status_unconfigured">Completa URL y usuario para conectar con Deposito_ART1.</string>
+    <string name="extension_status_unconfigured">Completa tu usuario para conectar con Deposito_ART1.</string>
     <string name="extension_status_ready">Extension configurada. Puedes iniciar sesion.</string>
     <string name="extension_status_ready_to_login">Configuracion guardada. Ahora inicia sesion.</string>
     <string name="extension_status_authenticating">Iniciando sesion...</string>
