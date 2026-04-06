@@ -10,8 +10,8 @@
 
     <FrameLayout
         android:id="@+id/soldierBox"
-        android:layout_width="86dp"
-        android:layout_height="86dp"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
         android:layout_gravity="center_horizontal"
         android:foregroundGravity="center">
 

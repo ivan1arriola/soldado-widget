@@ -125,6 +125,18 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         val layoutRes = if (minHeight >= 140) R.layout.widget_soldado_tall else R.layout.widget_soldado
         val views = RemoteViews(context.packageName, layoutRes)
 
+        // Escalado por altura, siempre cuadrado para evitar deformación.
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            val soldierSizeDp = when {
+                minHeight >= 260 -> 150f
+                minHeight >= 200 -> 124f
+                minHeight >= 140 -> 98f
+                else -> 68f
+            }
+            views.setViewLayoutWidth(R.id.soldierImage, soldierSizeDp, android.util.TypedValue.COMPLEX_UNIT_DIP)
+            views.setViewLayoutHeight(R.id.soldierImage, soldierSizeDp, android.util.TypedValue.COMPLEX_UNIT_DIP)
+        }
+
         views.setImageViewResource(R.id.soldierImage, SOLDIER_FRAMES[frame])
         views.setTextViewText(R.id.soldierPhrase, phrase)
 
