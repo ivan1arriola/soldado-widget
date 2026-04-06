@@ -6,11 +6,12 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.RemoteViews
-import kotlin.random.Random
 import java.util.concurrent.Executors
+import kotlin.random.Random
 
 class SoldadoWidgetProvider : AppWidgetProvider() {
 
@@ -21,9 +22,9 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
     ) {
         appWidgetIds.forEach { appWidgetId ->
             val options = appWidgetManager.getAppWidgetOptions(appWidgetId)
-            val frame = loadFrame(context, appWidgetId)
+            val mood = loadMood(context, appWidgetId)
             val phrase = ReminderSync.phrase(context, appWidgetId)
-            updateWidget(context, appWidgetManager, appWidgetId, frame, phrase, options)
+            updateWidget(context, appWidgetManager, appWidgetId, mood, phrase, options)
             requestSync(context, appWidgetId, force = false)
         }
     }
@@ -35,9 +36,9 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         newOptions: Bundle
     ) {
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
-        val frame = loadFrame(context, appWidgetId)
+        val mood = loadMood(context, appWidgetId)
         val phrase = ReminderSync.phrase(context, appWidgetId)
-        updateWidget(context, appWidgetManager, appWidgetId, frame, phrase, newOptions)
+        updateWidget(context, appWidgetManager, appWidgetId, mood, phrase, newOptions)
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -64,25 +65,21 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
     private fun handleTap(context: Context, appWidgetId: Int) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         FeedbackEffects.playTap(context)
-        
+
         val lastTapTime = prefs.getLong("last_tap_$appWidgetId", 0L)
         val currentTime = System.currentTimeMillis()
         var taps = prefs.getInt("taps_$appWidgetId", 0)
-        
+
         if (currentTime - lastTapTime > 30000) {
             taps = 0
         }
         taps++
-        
-        val nextFrame = when {
-            taps > 15 -> 3 // Agotado
-            taps > 8 -> listOf(1, 2, 3).random() // Inquieto sin deformar
-            else -> listOf(0, 1, 2).random() // Normal estable
-        }
-        
+
+        val mood = moodForTaps(taps)
+
         prefs.edit()
             .putInt("taps_$appWidgetId", taps)
-            .putInt("frame_$appWidgetId", nextFrame)
+            .putString("mood_$appWidgetId", mood.name)
             .putLong("last_tap_$appWidgetId", currentTime)
             .apply()
 
@@ -96,7 +93,7 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
 
         val manager = AppWidgetManager.getInstance(context)
         val options = manager.getAppWidgetOptions(appWidgetId)
-        updateWidget(context, manager, appWidgetId, nextFrame, phrase, options)
+        updateWidget(context, manager, appWidgetId, mood, phrase, options)
         requestSync(context, appWidgetId, force = false)
     }
 
@@ -104,8 +101,8 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         super.onDeleted(context, appWidgetIds)
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val editor = prefs.edit()
-        appWidgetIds.forEach { id -> 
-            editor.remove("frame_$id")
+        appWidgetIds.forEach { id ->
+            editor.remove("mood_$id")
             editor.remove("taps_$id")
             editor.remove("last_tap_$id")
             ReminderSync.clearSnapshotForWidget(context, id)
@@ -117,7 +114,7 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         context: Context,
         manager: AppWidgetManager,
         appWidgetId: Int,
-        frame: Int,
+        mood: SoldierMood,
         phrase: String,
         options: Bundle
     ) {
@@ -137,7 +134,10 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
             views.setViewLayoutHeight(R.id.soldierImage, soldierSizeDp, android.util.TypedValue.COMPLEX_UNIT_DIP)
         }
 
-        views.setImageViewResource(R.id.soldierImage, SOLDIER_FRAMES[frame])
+        // Técnica sin frames: una imagen base + variación por estado (tinte/alpha).
+        views.setImageViewResource(R.id.soldierImage, R.drawable.soldado_frame_0)
+        views.setInt(R.id.soldierImage, "setColorFilter", mood.tintColor)
+        views.setInt(R.id.soldierImage, "setImageAlpha", mood.alpha)
         views.setTextViewText(R.id.soldierPhrase, phrase)
 
         val titles = ReminderSync.getTopTitles(context, appWidgetId)
@@ -175,12 +175,12 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
             val snapshot = ReminderSync.fetchSnapshot(context)
             ReminderSync.saveSnapshotForWidget(context, appWidgetId, snapshot)
 
-            val frame = loadFrame(context, appWidgetId)
+            val mood = loadMood(context, appWidgetId)
             val phrase = ReminderSync.phraseWithTasks(context)
-            
+
             val manager = AppWidgetManager.getInstance(context)
             val options = manager.getAppWidgetOptions(appWidgetId)
-            updateWidget(context, manager, appWidgetId, frame, phrase, options)
+            updateWidget(context, manager, appWidgetId, mood, phrase, options)
         }
     }
 
@@ -197,9 +197,20 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         )
     }
 
-    private fun loadFrame(context: Context, appWidgetId: Int): Int {
+    private fun loadMood(context: Context, appWidgetId: Int): SoldierMood {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        return prefs.getInt("frame_$appWidgetId", 0)
+        val raw = prefs.getString("mood_$appWidgetId", SoldierMood.CALM.name)
+        return SoldierMood.from(raw)
+    }
+
+    private fun moodForTaps(taps: Int): SoldierMood {
+        return when {
+            taps > 15 -> SoldierMood.SLEEPY
+            taps > 10 -> SoldierMood.ANGRY
+            taps > 5 -> SoldierMood.TIRED
+            taps == 1 -> SoldierMood.ALERT
+            else -> listOf(SoldierMood.CALM, SoldierMood.ALERT).random()
+        }
     }
 
     private fun openAppIntent(context: Context, appWidgetId: Int): PendingIntent {
@@ -228,13 +239,6 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
 
         private val ioExecutor = Executors.newSingleThreadExecutor()
 
-        private val SOLDIER_FRAMES = listOf(
-            R.drawable.soldado_frame_0,
-            R.drawable.soldado_frame_1,
-            R.drawable.soldado_frame_2,
-            R.drawable.soldado_frame_3
-        )
-
         private val TAP_PHRASE_RES = listOf(
             R.string.soldado_phrase_1,
             R.string.soldado_phrase_2,
@@ -243,5 +247,19 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
             R.string.soldado_phrase_5,
             R.string.soldado_phrase_idle
         )
+    }
+
+    private enum class SoldierMood(val tintColor: Int, val alpha: Int) {
+        CALM(Color.parseColor("#FFFFFFFF"), 255),
+        ALERT(Color.parseColor("#FFEFFFC8"), 255),
+        TIRED(Color.parseColor("#FFD7D7D7"), 232),
+        ANGRY(Color.parseColor("#FFFFD0D0"), 255),
+        SLEEPY(Color.parseColor("#FFC8D8FF"), 220);
+
+        companion object {
+            fun from(value: String?): SoldierMood {
+                return entries.firstOrNull { it.name == value } ?: CALM
+            }
+        }
     }
 }
