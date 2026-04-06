@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Frame 5: Mirando al lado (Pupilas desplazadas) -->
+    <!-- Sombra del suelo -->
+    <item android:top="64dp" android:left="20dp" android:right="20dp" android:bottom="2dp">
+        <shape android:shape="oval"><solid android:color="#20000000" /></shape>
+    </item>
+
+    <!-- Cuerpo -->
+    <item android:top="30dp" android:left="18dp" android:right="18dp" android:bottom="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#78866B" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+
+    <!-- Cabeza -->
+    <item android:top="6dp" android:left="16dp" android:right="16dp" android:bottom="32dp">
+        <shape android:shape="oval"><solid android:color="#FFDBAC" /></shape>
+    </item>
+
+    <!-- Casco -->
+    <item android:top="2dp" android:left="15dp" android:right="15dp" android:bottom="48dp">
+        <shape android:shape="oval"><solid android:color="#556B2F" /></shape>
+    </item>
+
+    <!-- Ojos -->
+    <item android:top="22dp" android:left="27dp" android:right="37dp" android:bottom="40dp">
+        <shape android:shape="oval"><solid android:color="#212121" /></shape>
+    </item>
+    <item android:top="22dp" android:left="37dp" android:right="27dp" android:bottom="40dp">
+        <shape android:shape="oval"><solid android:color="#212121" /></shape>
+    </item>
+
+    <!-- Pupilas desplazadas a la derecha -->
+    <item android:top="24dp" android:left="31dp" android:right="35dp" android:bottom="38dp">
+        <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
+    </item>
+    <item android:top="24dp" android:left="41dp" android:right="25dp" android:bottom="38dp">
+        <shape android:shape="oval"><solid android:color="#3E2723" /></shape>
+    </item>
+
+    <!-- Brillos desplazados -->
+    <item android:top="23dp" android:left="31dp" android:right="39dp" android:bottom="42dp">
+        <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
+    </item>
+    <item android:top="23dp" android:left="41dp" android:right="29dp" android:bottom="42dp">
+        <shape android:shape="oval"><solid android:color="#FFFFFF" /></shape>
+    </item>
+
+    <!-- Brazos -->
+    <item android:top="38dp" android:left="10dp" android:right="54dp" android:bottom="18dp">
+        <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
+    </item>
+    <item android:top="38dp" android:left="54dp" android:right="10dp" android:bottom="18dp">
+        <shape android:shape="rectangle"><solid android:color="#78866B" /><corners android:radius="8dp"/></shape>
+    </item>
+</layer-list>
