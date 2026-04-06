@@ -22,7 +22,9 @@ class MainActivity : AppCompatActivity() {
         R.drawable.soldado_frame_0,
         R.drawable.soldado_frame_1,
         R.drawable.soldado_frame_2,
-        R.drawable.soldado_frame_3
+        R.drawable.soldado_frame_3,
+        R.drawable.soldado_frame_4,
+        R.drawable.soldado_frame_5
     )
 
     private val tapPhraseRes = listOf(
@@ -50,6 +52,10 @@ class MainActivity : AppCompatActivity() {
         val soldierContainer = findViewById<View>(R.id.soldierContainer)
         val soldierImage = findViewById<ImageView>(R.id.mainSoldierImage)
         val soldierPhrase = findViewById<TextView>(R.id.mainSoldierPhrase)
+        
+        // Animación de "respiración" constante
+        startIdleAnimation(soldierImage)
+
         val btnOrder = findViewById<Button>(R.id.btnOrder)
         val btnReset = findViewById<Button>(R.id.btnReset)
         val btnGoToConfig = findViewById<Button>(R.id.btnGoToConfig)
@@ -63,16 +69,23 @@ class MainActivity : AppCompatActivity() {
             taps++
             FeedbackEffects.playTap(this)
 
-            // Animacion de "salto" o escala al tocar
+            // Animacion de "salto" o escala al tocar más dinámica
             soldierImage.animate()
-                .scaleX(1.2f)
-                .scaleY(1.2f)
-                .setDuration(100)
+                .scaleX(1.3f)
+                .scaleY(0.8f) // Efecto de compresión
+                .setDuration(80)
                 .withEndAction {
                     soldierImage.animate()
-                        .scaleX(1.0f)
-                        .scaleY(1.0f)
-                        .setDuration(100)
+                        .scaleX(0.9f)
+                        .scaleY(1.2f) // Efecto de estiramiento
+                        .setDuration(120)
+                        .withEndAction {
+                            soldierImage.animate()
+                                .scaleX(1.0f)
+                                .scaleY(1.0f)
+                                .setDuration(100)
+                                .start()
+                        }
                         .start()
                 }
                 .start()
@@ -84,9 +97,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             val nextFrame = when {
-                taps > 15 -> 3
-                taps > 8 -> (1..2).random()
-                else -> (0..2).random()
+                taps > 15 -> 3 // Agotado
+                taps > 8 -> (1..5).random() // Muy inquieto
+                else -> listOf(0, 1, 4, 5).random() // Movimientos normales + parpadeo/mirar
             }
 
             val phrase = when {
@@ -158,6 +171,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         ViewCompat.requestApplyInsets(root)
+    }
+
+    private fun startIdleAnimation(view: View) {
+        view.animate()
+            .translationYBy(-10f)
+            .setDuration(1500)
+            .withEndAction {
+                view.animate()
+                    .translationYBy(10f)
+                    .setDuration(1500)
+                    .withEndAction { startIdleAnimation(view) }
+                    .start()
+            }
+            .start()
     }
 
     companion object {

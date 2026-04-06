@@ -15,7 +15,7 @@
         android:textSize="20sp"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:marginBottom="20dp" />
+        android:layout_marginBottom="20dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
         android:text="Título *"
         android:textColor="#B0BEC5"
         android:textSize="12sp"
-        android:marginBottom="4dp" />
+        android:layout_marginBottom="4dp" />
 
     <EditText
         android:id="@+id/etTitulo"
@@ -36,7 +36,7 @@
         android:background="@drawable/edit_text_dark"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:marginBottom="16dp"
+        android:layout_marginBottom="16dp"
         android:maxLines="1" />
 
     <TextView
@@ -45,7 +45,7 @@
         android:text="Notas (opcional)"
         android:textColor="#B0BEC5"
         android:textSize="12sp"
-        android:marginBottom="4dp" />
+        android:layout_marginBottom="4dp" />
 
     <EditText
         android:id="@+id/etNota"
@@ -60,7 +60,7 @@
         android:paddingEnd="12dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:marginBottom="16dp"
+        android:layout_marginBottom="16dp"
         android:gravity="top" />
 
     <TextView
@@ -69,7 +69,7 @@
         android:text="Fecha Límite (opcional)"
         android:textColor="#B0BEC5"
         android:textSize="12sp"
-        android:marginBottom="4dp" />
+        android:layout_marginBottom="4dp" />
 
     <Button
         android:id="@+id/btnFechaLimite"
@@ -79,7 +79,7 @@
         android:textColor="#FFFFFF"
         android:background="@drawable/button_dark"
         android:textSize="14sp"
-        android:marginBottom="16dp" />
+        android:layout_marginBottom="16dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -87,14 +87,14 @@
         android:text="Prioridad"
         android:textColor="#B0BEC5"
         android:textSize="12sp"
-        android:marginBottom="8dp" />
+        android:layout_marginBottom="8dp" />
 
     <RadioGroup
         android:id="@+id/rgPrioridad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:marginBottom="24dp">
+        android:layout_marginBottom="24dp">
 
         <RadioButton
             android:id="@+id/rbNormal"

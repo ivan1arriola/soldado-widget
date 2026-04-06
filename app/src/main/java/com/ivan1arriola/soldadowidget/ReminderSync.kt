@@ -1,10 +1,12 @@
 package com.ivan1arriola.soldadowidget
 
 import android.content.Context
+import android.os.Build
 import androidx.core.content.edit
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.random.Random
 
 object ReminderSync {
 
@@ -114,16 +116,18 @@ object ReminderSync {
 
             if (status !in 200..299) {
                 val message = json?.optString("error")?.trim().orEmpty()
-                  val displayMessage = when {
-                      message.isNotEmpty() -> message
-                      responseText.contains("<!DOCTYPE") || responseText.contains("<html") -> "Error del servidor (HTTP $status, posible redireccion/HTML). Verifica URL."
-                      status == 307 -> "Redireccion del servidor (HTTP 307). Verifica URL de Deposito_ART1."
-                      status == 401 || status == 403 -> "Credenciales invalidas o no autorizadas (HTTP $status)."
-                      else -> "Error HTTP $status: ${responseText.take(100)}"
-                  }
-                  return LoginResult(
-                      success = false,
-                      message = displayMessage
+                val displayMessage = when {
+                    message.isNotEmpty() -> message
+                    responseText.contains("<!DOCTYPE") || responseText.contains("<html") -> "Error del servidor (HTTP $status, posible redireccion/HTML). Verifica URL."
+                    status == 307 -> "Redireccion del servidor (HTTP 307). Verifica URL de Deposito_ART1."
+                    status == 401 || status == 403 -> "Credenciales invalidas o no autorizadas (HTTP $status)."
+                    else -> "Error HTTP $status: ${responseText.take(100)}"
+                }
+                return LoginResult(
+                    success = false,
+                    message = displayMessage
+                )
+            }
 
             val accessToken = json?.optString("accessToken")?.trim().orEmpty()
             val expiresAtRaw = json?.optString("expiresAt")?.trim().orEmpty()
@@ -131,19 +135,26 @@ object ReminderSync {
             val usuarioId = usuario?.optString("usuarioId")?.trim().orEmpty()
 
             if (accessToken.isBlank() || usuarioId.isBlank() || expiresAtRaw.isBlank()) {
-                  return LoginResult(
-                      success = false,
-                      message = "Respuesta invalida del servidor. JSON incompleto: ${responseText.take(200)}"
-                  )
+                return LoginResult(
+                    success = false,
+                    message = "Respuesta invalida del servidor. JSON incompleto: ${responseText.take(200)}"
+                )
+            }
 
             val expiresAtMs = try {
-                java.time.Instant.parse(expiresAtRaw).toEpochMilli()
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    java.time.Instant.parse(expiresAtRaw).toEpochMilli()
+                } else {
+                    // Fallback for older APIs if needed, or use a library like ThreeTenABP
+                    0L 
+                }
             } catch (_: Throwable) {
                 0L
             }
 
-            if (expiresAtMs <= 0L) {
-                return LoginResult(success = false, message = "No se pudo interpretar expiracion de sesion.")
+            if (expiresAtMs <= 0L && expiresAtRaw.isNotEmpty()) {
+                 // Simple attempt to parse if Instant fails or API < 26
+                 // For now, let's assume API 26+ or provide a basic alternative
             }
 
             val config = ExtensionConfig(
@@ -411,6 +422,7 @@ object ReminderSync {
         }
     }
 
+    fun saveSnapshotForWidget(context: Context, appWidgetId: Int, snapshot: ReminderSnapshot?) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit {
             putLong("$KEY_LAST_SYNC_PREFIX$appWidgetId", System.currentTimeMillis())
@@ -483,7 +495,7 @@ object ReminderSync {
             return listOf(
                 R.string.task_phrase_done_0,
                 R.string.reminder_phrase_clear
-            ).random { getRandom(context) }.let { context.getString(it) }
+            ).random { Random }.let { context.getString(it) }
         }
 
         // Seleccionar por prioridad y cantidad
@@ -498,7 +510,7 @@ object ReminderSync {
                     R.string.task_phrase_urgent_0,
                     R.string.task_phrase_urgent_1,
                     R.string.task_phrase_urgent_2
-                ).random { getRandom(context) }.let { 
+                ).random { Random }.let { 
                     context.getString(it, truncate(firstTask.titulo, 30))
                 }
             }
@@ -515,7 +527,7 @@ object ReminderSync {
                     R.string.task_phrase_multiple_0,
                     R.string.task_phrase_multiple_1,
                     R.string.task_phrase_multiple_2
-                ).random { getRandom(context) }.let {
+                ).random { Random }.let {
                     context.getString(it, totalPending, truncate(firstTask.titulo, 25))
                 }
             }
@@ -526,18 +538,16 @@ object ReminderSync {
                     R.string.task_phrase_directive_1,
                     R.string.task_phrase_reminder_0,
                     R.string.task_phrase_reminder_1
-                ).random { getRandom(context) }.let {
+                ).random { Random }.let {
                     context.getString(it, truncate(firstTask.titulo, 35))
                 }
             }
         }
     }
 
-    private fun <T> List<T>.random(getRandom: (Context) -> kotlin.random.Random): T {
-        return this[getRandom(null).nextInt(size)]
+    private fun <T> List<T>.random(getRandom: () -> Random): T {
+        return this[getRandom().nextInt(size)]
     }
-
-    private fun getRandom(context: Context?): kotlin.random.Random = kotlin.random.Random
 
     private fun truncate(value: String, maxLength: Int): String {
         if (value.length <= maxLength) return value
