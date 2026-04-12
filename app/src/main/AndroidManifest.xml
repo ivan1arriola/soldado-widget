@@ -51,7 +51,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.ivan1arriola.soldadowidget.ACTION_WIDGET_TAP" />
+                <action android:name="com.ivan1arriola.soldadowidget.ACTION_TAP" />
+                <action android:name="com.ivan1arriola.soldadowidget.ACTION_ANIMATE_TICK" />
             </intent-filter>
 
             <meta-data

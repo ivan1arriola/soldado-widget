@@ -1,25 +1,39 @@
 package com.ivan1arriola.soldadowidget
 
+import android.app.AlarmManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import android.widget.RemoteViews
-import kotlin.math.max
 import java.util.concurrent.Executors
+import kotlin.math.max
 import kotlin.random.Random
 
 class SoldadoWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+        startAnimationTicker(context)
         for (id in appWidgetIds) {
             renderWidget(context, appWidgetManager, id, ReminderSync.phrase(context, id))
             requestSync(context, id, force = false)
         }
+    }
+
+    override fun onEnabled(context: Context) {
+        super.onEnabled(context)
+        startAnimationTicker(context)
+    }
+
+    override fun onDisabled(context: Context) {
+        super.onDisabled(context)
+        stopAnimationTicker(context)
     }
 
     override fun onAppWidgetOptionsChanged(
@@ -34,11 +48,14 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
-        if (intent.action != ACTION_TAP) return
-
-        val id = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
-        if (id != AppWidgetManager.INVALID_APPWIDGET_ID) {
-            handleInteraction(context, id)
+        when (intent.action) {
+            ACTION_TAP -> {
+                val id = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+                if (id != AppWidgetManager.INVALID_APPWIDGET_ID) {
+                    handleInteraction(context, id)
+                }
+            }
+            ACTION_ANIMATE_TICK -> renderAnimationTick(context)
         }
     }
 
@@ -99,6 +116,11 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
             frameFor(mood, id)
         }
 
+        views.setInt(R.id.widgetRoot, "setBackgroundResource", mood.widgetBackgroundRes)
+        views.setInt(R.id.soldierBox, "setBackgroundResource", mood.avatarHaloRes)
+        views.setInt(R.id.moodBadge, "setBackgroundResource", mood.badgeBackgroundRes)
+        views.setInt(R.id.tasksContainer, "setBackgroundResource", R.drawable.widget_tasks_bg)
+
         views.setImageViewResource(R.id.soldierImage, frameRes)
         views.setInt(R.id.soldierImage, "setImageAlpha", 255)
 
@@ -115,7 +137,7 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
                 !ReminderSync.isConfigured(context) -> Color.parseColor("#F2F2F2")
                 stats.urgentCount > 0 -> Color.parseColor("#FFD1C2")
                 stats.pendingCount > 0 -> Color.parseColor("#DDF5C8")
-                else -> Color.parseColor("#F4FFF2")
+                else -> mood.badgeTextColor
             }
         )
 
@@ -167,6 +189,19 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
         ))
 
         manager.updateAppWidget(id, views)
+    }
+
+    private fun renderAnimationTick(context: Context) {
+        val manager = AppWidgetManager.getInstance(context)
+        val widgetIds = manager.getAppWidgetIds(ComponentName(context, SoldadoWidgetProvider::class.java))
+        if (widgetIds.isEmpty()) {
+            stopAnimationTicker(context)
+            return
+        }
+
+        for (id in widgetIds) {
+            renderWidget(context, manager, id, ReminderSync.phrase(context, id))
+        }
     }
 
     private fun isTallWidget(manager: AppWidgetManager, appWidgetId: Int): Boolean {
@@ -228,6 +263,35 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
                 // Mantener widget funcional incluso si falla red.
             }
         }
+    }
+
+    private fun startAnimationTicker(context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager ?: return
+        val tickerIntent = animationTickerIntent(context)
+        alarmManager.cancel(tickerIntent)
+        alarmManager.setInexactRepeating(
+            AlarmManager.ELAPSED_REALTIME,
+            SystemClock.elapsedRealtime() + ANIMATION_TICK_INTERVAL_MS,
+            ANIMATION_TICK_INTERVAL_MS,
+            tickerIntent
+        )
+    }
+
+    private fun stopAnimationTicker(context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager ?: return
+        alarmManager.cancel(animationTickerIntent(context))
+    }
+
+    private fun animationTickerIntent(context: Context): PendingIntent {
+        val intent = Intent(context, SoldadoWidgetProvider::class.java).apply {
+            action = ACTION_ANIMATE_TICK
+        }
+        return PendingIntent.getBroadcast(
+            context,
+            ANIMATION_TICK_REQUEST_CODE,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 
     private fun moodForTapCount(taps: Int): SoldierMood {
@@ -309,12 +373,15 @@ class SoldadoWidgetProvider : AppWidgetProvider() {
 
     companion object {
         private const val ACTION_TAP = "com.ivan1arriola.soldadowidget.ACTION_TAP"
+        private const val ACTION_ANIMATE_TICK = "com.ivan1arriola.soldadowidget.ACTION_ANIMATE_TICK"
         private const val PREFS_NAME = "soldado_widget_prefs"
         private const val MIN_SYNC_INTERVAL_MS = 60_000L
         private const val TAP_RESET_WINDOW_MS = 30_000L
         private const val TAP_REACTION_DURATION_MS = 1_200L
         private const val DOUBLE_TAP_WINDOW_MS = 420L
         private const val DOUBLE_TAP_REACTION_DURATION_MS = 1_700L
+        private const val ANIMATION_TICK_INTERVAL_MS = 1_400L
+        private const val ANIMATION_TICK_REQUEST_CODE = 31_901
 
         private val ioExecutor = Executors.newSingleThreadExecutor()
 
